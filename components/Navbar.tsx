@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Menu } from "lucide-react"
+import { Separator } from "@/components/ui/separator"
 
 import {
   NavigationMenu,
@@ -18,6 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import VerticalSeparator from "./VerticalSeparator"
 
 export default function Navbar() {
   return (

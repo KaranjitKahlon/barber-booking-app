@@ -24,7 +24,6 @@ export default function ServiceCard( { title, description, price} : ServiceCardP
       </CardHeader>
       <CardFooter className="flex justify-between items-center [padding:24px]">
         <p className="text-2xl font-bold text-center">${price}</p>
-        <Button className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:10px_25px]">Book Now</Button>
       </CardFooter>
     </Card>
 

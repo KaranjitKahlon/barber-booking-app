@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
 import Image from "next/image";
+import { Separator } from "@/components/ui/separator"
 
 
 
@@ -22,14 +23,16 @@ export default function Home() {
           <ServiceCard title="Haircut (45 min)" description="Clean fade with precise blending" price="40.00" />
           <ServiceCard title="Beard Shape Up (20 min)" description="Shape and trim your beard" price="25.00" />
         </div>
+        <Button className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Book Now</Button>
         </section>
 
         <section className="flex flex-col items-center text-center [padding:60px_24px]">
-        <h1>Hours</h1>
+        <h1>Hours & Location</h1>
         <h2>Check out our operating hours.</h2>
         <p className="mt-4 max-w-[600px]">Monday - Friday: 9:00 AM - 7:00 PM</p>
         <p className="mt-2 max-w-[600px]">Saturday: 9:00 AM - 5:00 PM</p>
         <p className="mt-2 max-w-[600px]">Sunday: Closed</p>
+        <p className="mt-2 max-w-[600px]">1005 E Pescadero Ave #155, Tracy, CA 95304</p>
       </section>
         
         <section className="flex flex-col items-center text-center [padding:60px_24px]">
