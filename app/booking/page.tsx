@@ -6,23 +6,25 @@ import InputBasic from "@/components/InputBasic";
 import ServiceCard from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 
-
+/*testing git commit*/
 
 export default function BookingPage() {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(1) /* for progressive booking steps*/
     const services = [
-        { id: "haircutWithBeard", title: "Haircut With Beard (1 hr)", description: "Professional hair cutting service", price: "45.00" },
+        { id: "haircutWithBeard", title: "Haircut With Beard (1 hr)", description: "Professional hair cutting service", price: "45.00" }, /*id's for each service*/
         { id: "haircut", title: "Haircut (45 min)", description: "Clean fade with precise blending", price: "40.00" },
         { id: "beardShapeUp", title: "Beard Shape Up (20 min)", description: "Shape and trim your beard", price: "25.00" }
     ]
     const [selectedService, setSelectedService] = useState<string | null>(null)
+    const [date, setDate] = useState<Date | null>(null)
+    const [time, setTime] = useState<string | null>(null)
 
     return (
         <main className="">
             {step === 1 && (
                 <section className="flex flex-col items-center text-center [padding:60px_24px]">
                 <h1>Services</h1>
-                <h2>Book your preferred service.</h2> { /*going to change the title, desc, price from text to variables, interpolation*/ }
+                <h2>Book your preferred service.</h2> { /*interpolated services so easier to append to db*/ }
                 <div className="flex flex-col md:flex-row [gap:24px] mt-8">
                     {services.map((services) => (
                         <ServiceCard
@@ -42,7 +44,7 @@ export default function BookingPage() {
             {step === 2 && (
                 <section className="flex flex-col items-center text-center [padding:60px_24px]">
                 <h2>Choose Date and Time</h2>
-                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" />
+                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} onSelect={(d) => setDate(d ?? null)} />
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
                     <Button onClick={() => setStep(1)} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Back</Button>
                     <Button onClick={() => setStep(3)} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Continue</Button>
