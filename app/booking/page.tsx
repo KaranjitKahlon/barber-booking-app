@@ -1,27 +1,56 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookCalendar from "@/components/BookCalendar";
 import InputBasic from "@/components/InputBasic";
 import ServiceCard from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import ConfirmAnimation from "@/components/ConfirmAnimation"
 import Link from "next/link"
+import { supabase } from "@/lib/supabase";
 
-/*testing git commit*/
 
 export default function BookingPage() {
     const [step, setStep] = useState(1) /* for progressive booking steps*/
-    const services = [
-        { id: "haircutWithBeard", title: "Haircut With Beard (1 hr)", description: "Professional hair cutting service", price: "45.00" }, /*id's for each service*/
-        { id: "haircut", title: "Haircut (45 min)", description: "Clean fade with precise blending", price: "40.00" },
-        { id: "beardShapeUp", title: "Beard Shape Up (20 min)", description: "Shape and trim your beard", price: "25.00" }
-    ]
+    const [services, setServices] = useState<any[]>([])
+    
     const [selectedService, setSelectedService] = useState<string | null>(null)
     const [date, setDate] = useState<Date | null>(null)
     const [time, setTime] = useState<string | null>(null)
     const timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"]
     const [name, setName] = useState<string | null>(null)
+
+    useEffect(() => {
+        async function fetchServices() {
+            const {data, error } = await supabase.from('services').select('*')
+            console.log("Fetched services:", data, error)
+            if (error) {
+                console.error(error)
+            } else {
+                setServices(data)
+            }
+        }
+        fetchServices()
+    }, [])
+
+
+    async function handleConfirm() {
+        const { data, error } = await supabase
+            .from("bookings")
+            .insert([
+                {
+                    service_id: selectedService,
+                    date: date,
+                    time: time,
+                    name: name
+                }
+            ])
+        if (error) {
+            console.error(error)
+        } else {
+            console.log("Booking Saved!", data)
+        }
+    }
 
     return (
         <main className="">
@@ -76,7 +105,7 @@ export default function BookingPage() {
                 />
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
                     <Button onClick={() => { setStep(2); setName(null); }} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px]">Back</Button>
-                    <Button disabled={!name} onClick={() => setStep(4)} className="bg-[#80ed99] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px]">Confirm</Button>
+                    <Button disabled={!name} onClick={() => { setStep(4); handleConfirm(); }} className="bg-[#80ed99] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px]">Confirm</Button>
                 </div>
             </section>
             )}
