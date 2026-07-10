@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function ConfirmAnimation() {
     return (
         <Image 
-        src="Confirmation.svg"
+        src="greenChecklist.svg"
         alt="Confirmation Animation"
         width={200}
         height={200}
