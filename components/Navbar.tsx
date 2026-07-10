@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between bg-[#dee2e6] [opacity:0.9] px-6 py-4 text-[#ffffff] [padding:16px_24px]">
       <Link href="/" className="text-xl font-bold">
-        <Image src="/barberLogo.jpg" alt="Barber-logo" width={60} height={60} className="rounded-full" />
+        <Image src="/jslLogo.jpeg" alt="Barber-logo" width={60} height={60} className="rounded-full" />
       </Link>
 
       <div className="hidden items-center md:flex"> {/*desktop navbar */} 
