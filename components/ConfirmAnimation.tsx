@@ -1,15 +1,20 @@
 "use client"
 
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-
 export default function ConfirmAnimation() {
-    return (
-        <div className="mt-8 w-[200px] h-[200px]">
-            <DotLottieReact
-                src="/Checkmark.lottie"
-                autoplay
-                loop={false}
-            />
-        </div>
-    );
+  return (
+    <div className="mt-8 flex h-[200px] w-[200px] items-center justify-center">
+      <div className="success-circle">
+        <svg
+          className="check-svg"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <path
+            className="check-path"
+            d="M25 52 L42 68 L75 32"
+          />
+        </svg>
+      </div>
+    </div>
+  )
 }
