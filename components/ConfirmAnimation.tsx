@@ -1,17 +1,15 @@
 "use client"
 
-import Image from "next/image";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-
-  
 export default function ConfirmAnimation() {
     return (
-        <Image 
-        src="/Checkmark.gif"
-        alt="Confirmation Animation"
-        width={200}
-        height={200}
-        className="[margin-top:32px]"
-        />
-    )
+        <div className="mt-8 w-[200px] h-[200px]">
+            <DotLottieReact
+                src="/Checkmark.lottie"
+                autoplay
+                loop={false}
+            />
+        </div>
+    );
 }
