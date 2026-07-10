@@ -154,65 +154,12 @@
     }
 }
 
-.confirm-container {
-  margin-top: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-
-.confirm-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: green;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.checkmark {
-  width: 45px;
-  height: 25px;
-  position: relative;
-  transform: rotate(-45deg);
-}
-
-
-.check-left,
-.check-right {
-  position: absolute;
-  background: white;
-  border-radius: 5px;
-}
-
-
-/* Short line */
-.check-left {
-  width: 8px;
-  height: 25px;
-  left: 0;
-  bottom: 0;
-
-  transform-origin: bottom;
-  transform: scaleY(0);
-
-  animation: drawLeft 0.25s ease-out 0.45s forwards;
-}
-
-
-/* Long line */
-.check-right {
-  width: 8px;
-  height: 45px;
-  left: 17px;
-  top: -20px;
-
-  transform-origin: bottom;
-  transform: scaleY(0);
-
-  animation: drawRight 0.35s ease-out 0.7s forwards;
+.pop-in {
+  animation: popIn 0.5s ease-out forwards;
 }
