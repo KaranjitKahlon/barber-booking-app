@@ -16,6 +16,24 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export default function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+
+  async function handleLogin() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (error) {
+      setError(error.message)
+    } else {
+      router.push("/admin")
+    }
+  }
+
   return (
     <Card className="[width:100%] [max-width:400px] [padding:8px] [padding-bottom:16px]">
       <CardHeader>
@@ -32,6 +50,8 @@ export default function Login() {
               id="email"
               type="email"
               placeholder="user@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="[width:100%] [padding:12px] [font-size:16px] [font-weight:400] [box-sizing:border-box]"
             />
@@ -43,12 +63,13 @@ export default function Login() {
                 Forgot your password?
               </a>
             </div>
-            <Input id="password" type="password" required className="[width:100%] [padding:12px] [font-size:16px] [font-weight:400] [box-sizing:border-box]" />
+            <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="[width:100%] [padding:12px] [font-size:16px] [font-weight:400] [box-sizing:border-box]" />
           </div>
+          {error && <p className="[color:red] [font-size:14px]">{error}</p>}
         </div>
       </CardContent>
       <CardFooter className="flex flex-col [gap:12px] [padding-top:16px]">
-        <Button type="submit" className="[width:100%] [padding:12px] [font-size:16px] [font-weight:600]">
+        <Button className="[width:100%] [padding:12px] [font-size:16px] [font-weight:600]" onClick={handleLogin}>
           Login
         </Button>
       </CardFooter>

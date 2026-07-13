@@ -1,8 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
 import LoginCard from "@/components/LoginCard"
-import { Button } from "@/components/ui/button"
 
 export default function LoginPage() {
     return (
