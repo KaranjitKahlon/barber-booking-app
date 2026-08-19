@@ -46,7 +46,7 @@ export default function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit">
-                <Link href="/booking"><Button className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px]">Book Now</Button></Link>
+                <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px]">Book Now</Button></Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -63,9 +63,9 @@ export default function Navbar() {
               <Image src="/menuIcon.png" alt="Hamburger Icon" width={24} height={24} />
             </button>
           </SheetTrigger>
-          <SheetContent side="right" className="[top:0] [height:100vh] bg-[#dee2e6] [opacity:0.9] [padding:24px]">
+          <SheetContent side="right" className="[top:0] [height:100vh] bg-[#18211B] [opacity:0.9] [padding:24px]">
             <SheetHeader>
-              <SheetTitle>Barber Booking</SheetTitle>
+              <SheetTitle>JSL Barber</SheetTitle>
             </SheetHeader>
             <div className="mt-4 flex flex-col gap-4">
               <SheetClose asChild>

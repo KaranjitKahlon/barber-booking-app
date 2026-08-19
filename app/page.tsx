@@ -15,7 +15,7 @@ export default function Home() {
       <section id="hero" className="flex flex-col items-center text-center [padding:60px_24px]">
         <h1>Get Fresh Cuts</h1>
         <h2>Book your appointment with ease and style.</h2>
-        <Link href="/booking"><Button className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px]">Book Now</Button></Link>
+        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px]">Book Now</Button></Link>
       </section>
 
       <section id="services" className="flex flex-col items-center text-center [padding:60px_24px]">
@@ -26,7 +26,7 @@ export default function Home() {
           <ServiceCard title="Haircut (45 min)" description="Clean fade with precise blending" price="40.00" />
           <ServiceCard title="Beard Shape Up (20 min)" description="Shape and trim your beard" price="25.00" />
         </div>
-        <Link href="/booking"><Button className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Book Now</Button></Link>
+        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Book Now</Button></Link>
       </section>
 
       <section id="hours-location" className="flex flex-col items-center text-center [padding:60px_24px]">
