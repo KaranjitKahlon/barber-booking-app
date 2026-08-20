@@ -60,7 +60,7 @@ export default function Navbar() {
               type="button"
               aria-label="Open navigation menu"
               className="[background:none] [border:none] cursor-pointer [padding:8px]">
-              <Image src="/menuIcon.png" alt="Hamburger Icon" width={24} height={24} />
+              <Image src="/menuIconWhite.png" alt="Hamburger Icon" width={24} height={24} />
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="[top:0] [height:100vh] bg-[#18211B] [opacity:0.9] [padding:24px]">
