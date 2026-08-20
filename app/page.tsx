@@ -5,11 +5,28 @@ import ServiceCard from "@/components/ServiceCard";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator"
 import Link from "next/dist/client/link";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 
 
 
 export default function Home() {
+  const [services, setServices] = useState<any[]>([])
+
+  useEffect(() => {
+          async function fetchServices() {
+              const {data, error } = await supabase.from('services').select('*')
+              console.log("Fetched services:", data, error)
+              if (error) {
+                  console.error(error)
+              } else {
+                  setServices(data)
+              }
+          }
+          fetchServices()
+      }, [])
+      
   return (
     <main className="">
       <section id="hero" className="flex flex-col items-center text-center [padding:60px_24px]">
@@ -22,9 +39,14 @@ export default function Home() {
         <h1>Services</h1>
         <h2>Explore our range of premium barbering services.</h2> { /*going to change the title, desc, price from text to variables, interpolation*/ }
         <div className="flex flex-col md:flex-row [gap:24px] mt-8">
-          <ServiceCard title="Haircut With Beard (1 hr)" description="Professional hair cutting service" price="45.00" />
-          <ServiceCard title="Haircut (45 min)" description="Clean fade with precise blending" price="40.00" />
-          <ServiceCard title="Beard Shape Up (20 min)" description="Shape and trim your beard" price="25.00" />
+            {services.map((services) => (
+                <ServiceCard
+                    key={services.id}
+                    title={services.title}
+                    description={services.description}
+                    price={services.price}
+                />
+            ))}
         </div>
         <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Book Now</Button></Link>
       </section>
