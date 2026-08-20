@@ -80,9 +80,13 @@ export default function BookingPage() {
                 <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
                 
                 {date && (
-                    <div className="flex flex-col flex-wrap md:flex-row [gap:12px] mt-8 [margin-top:72px]">
+                    <div className="grid [grid-template-columns:repeat(2,1fr)] md:[grid-template-columns:repeat(4,1fr)] [gap:12px] [margin-top:70px] [max-width:500px]">
                         {timeSlots.map((slot) => (
-                            <Button key={slot} onClick={() => setTime(slot)} className={`bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-full [padding:14px_32px] ${time === slot ? "bg-[#b98a4a]" : ""}`}>
+                            <Button 
+                                key={slot} 
+                                onClick={() => setTime(slot)} 
+                                className={`rounded-none [padding:12px_16px] text-sm ${time === slot ? "bg-[#b98a4a] text-[#111821]" : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"}`}
+                            >
                                 {slot}
                             </Button>
                         ))}
