@@ -70,7 +70,7 @@ export default function BookingPage() {
                         />
                     ))}
                 </div>
-                <Button onClick={() => setStep(2)} disabled={!selectedService} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Continue</Button>
+                <Button onClick={() => setStep(2)} disabled={!selectedService} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Continue</Button>
             </section>
             )}
 
@@ -82,7 +82,7 @@ export default function BookingPage() {
                 {date && (
                     <div className="flex flex-col flex-wrap md:flex-row [gap:12px] mt-8 [margin-top:72px]">
                         {timeSlots.map((slot) => (
-                            <Button key={slot} onClick={() => setTime(slot)} className={`bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-full [padding:14px_32px] ${time === slot ? "bg-[#80ed99]" : ""}`}>
+                            <Button key={slot} onClick={() => setTime(slot)} className={`bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-full [padding:14px_32px] ${time === slot ? "bg-[#b98a4a]" : ""}`}>
                                 {slot}
                             </Button>
                         ))}
@@ -91,7 +91,7 @@ export default function BookingPage() {
 
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
                     <Button onClick={() => { setStep(1); setDate(null); setTime(null); }} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Back</Button>
-                    <Button onClick={() => setStep(3)} disabled={!time} className="bg-[#dee2e6] text-white hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Continue</Button>
+                    <Button onClick={() => setStep(3)} disabled={!time} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Continue</Button>
                 </div>
             </section>
             )}

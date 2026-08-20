@@ -61,7 +61,7 @@ export default function Home() {
       </section>
         
       <section id="about" className="flex flex-col items-center text-center [padding:60px_24px]">
-        <h1>About Us</h1>
+        <h1>About</h1>
         <h2>Discover the story behind our barbering expertise.</h2>
         <p className="mt-4 max-w-[600px]">At Fresh Cuts, we are passionate about delivering top-notch grooming experiences. Our skilled barbers combine artistry and precision to ensure you leave looking and feeling your best. With a commitment to quality and customer satisfaction, we strive to create a welcoming environment for all our clients.</p>
         <a href="https://www.instagram.com/jsl_barber" target="_blank" rel="noopener noreferrer">
