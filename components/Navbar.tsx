@@ -25,6 +25,9 @@ export default function Navbar() {
       <Link href="/" className="text-xl font-bold">
         <Image src="/jslLogo.jpeg" alt="Barber-logo" width={60} height={60} className="rounded-full" />
       </Link>
+      <Link href="/">
+        <Image src="/jslFullName.png" alt="Barber-Name" width={120} height={40} className="[height:60px] [width:auto] md:[height:100px] md:[margin-left:310px]" />
+      </Link>
 
       <div className="hidden items-center md:flex"> {/*desktop navbar */} 
         <NavigationMenu>
