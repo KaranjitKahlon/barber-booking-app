@@ -17,7 +17,7 @@ export default function BookCalendar( { className, selected, onSelect } : BookCa
   selected={selected ?? undefined} 
   onSelect={onSelect}
   classNames={{
-  day_button: "[&[data-selected-single=true]]:bg-[#b98a4a] [&[data-selected-single=true]]:text-[#111821] hover:bg-[#dee2e6] hover:text-[#111821]",
+  day_button: "text-[#111821] [&[data-selected-single=true]]:bg-[#b98a4a] [&[data-selected-single=true]]:text-[#111821] hover:bg-[#dee2e6] hover:text-[#111821]",
   today: "bg-[#dee2e6] text-[#111821] rounded-md",
   }}
   />
