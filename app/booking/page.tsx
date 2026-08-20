@@ -85,7 +85,7 @@ export default function BookingPage() {
                             <Button 
                                 key={slot} 
                                 onClick={() => setTime(slot)} 
-                                className={`rounded-none [padding:12px_16px] text-sm ${time === slot ? "bg-[#b98a4a] text-[#111821]" : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"}`}
+                                className={`rounded-none [padding:12px_16px] text-sm ${time === slot ? "bg-[#b98a4a] text-[#111821] hover:bg-[#cda064]" : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"}`}
                             >
                                 {slot}
                             </Button>
