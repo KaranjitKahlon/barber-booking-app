@@ -48,6 +48,11 @@ export default function Navbar() {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
+              <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit [margin-right:24px]">
+                <Link href="/login">Login</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit">
                 <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px]">Book Now</Button></Link>
               </NavigationMenuLink>
@@ -68,7 +73,7 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side="right" className="[top:0] [height:100vh] bg-[#18211B] [opacity:0.9] [padding:24px]">
             <SheetHeader>
-              <SheetTitle>JSL Barber</SheetTitle>
+              <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             <div className="mt-4 flex flex-col gap-4">
               <SheetClose asChild>
@@ -79,6 +84,9 @@ export default function Navbar() {
               </SheetClose>
               <SheetClose asChild>
                 <Link href="/#about" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">About</Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link href="/login" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Login</Link>
               </SheetClose>
               <SheetClose asChild>
                 <Link href="/booking" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Book Now</Link>
