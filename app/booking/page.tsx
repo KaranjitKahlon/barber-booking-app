@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import ConfirmAnimation from "@/components/ConfirmAnimation"
 import Link from "next/link"
 import { supabase } from "@/lib/supabase";
+import { timeSlots } from "@/lib/timeSlots";
+import { formatTime } from "@/lib/timeSlots";
 
 
 export default function BookingPage() {
@@ -17,7 +19,6 @@ export default function BookingPage() {
     const [selectedService, setSelectedService] = useState<string | null>(null)
     const [date, setDate] = useState<Date | null>(null)
     const [time, setTime] = useState<string | null>(null)
-    const timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"]
     const [name, setName] = useState<string | null>(null)
 
     useEffect(() => {
@@ -87,7 +88,7 @@ export default function BookingPage() {
                                 onClick={() => setTime(slot)} 
                                 className={`rounded-none [padding:12px_16px] text-sm ${time === slot ? "bg-[#b98a4a] text-[#111821] hover:bg-[#cda064]" : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"}`}
                             >
-                                {slot}
+                                {formatTime(slot)}
                             </Button>
                         ))}
                     </div>

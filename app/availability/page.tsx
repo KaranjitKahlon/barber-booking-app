@@ -3,6 +3,8 @@
 
 import BookCalendar from "@/components/BookCalendar"
 import { useState } from "react";
+import { timeSlots } from "@/lib/timeSlots";
+import { supabase } from "@/lib/supabase";
 
 export default function AvailabilityPage() {
     const [date, setDate] = useState<Date | null>(null)
