@@ -127,7 +127,7 @@ export default function BookingPage() {
                             day: "numeric",
                             year: "numeric",
                         })}{" "}
-                        at {time}.
+                        at {time && formatTime(time)}
                     </p>
                     <Link href="/"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Return Home</Button></Link>
                 </section>
