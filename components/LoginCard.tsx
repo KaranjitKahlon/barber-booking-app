@@ -30,7 +30,8 @@ export default function Login() {
     if (error) {
       setError(error.message)
     } else {
-      router.push("/admin")
+      window.location.href = "/admin"
+      console.log("Logged in successfully!", data)
     }
   }
 
