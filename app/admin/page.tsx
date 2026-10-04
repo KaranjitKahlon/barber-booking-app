@@ -56,18 +56,83 @@ export default function AdminPage() {
           </nav>
         </aside>
 
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 ml-[18px]">
           <header className="border-b border-[#e7e2d9] bg-[#fbfaf8]">
-            <div className="flex h-[68px] items-center justify-between px-6 sm:h-[74px] sm:px-10">
-              <Link href="/" className="flex items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a] lg:hidden"><span className="grid size-8 place-items-center rounded-lg bg-[#111821] text-[#d5aa6b]"><Scissors size={16} /></span><span className="text-xs font-semibold tracking-[0.12em]">JSL Barber</span></Link>
-              <div className="hidden items-center gap-2 text-sm text-[#87909a] lg:flex"><span>Workspace</span><ChevronRight size={15} /><span className="font-medium text-[#273443]">Overview</span></div>
-              <div className="flex items-center gap-4 sm:gap-6"><span className="hidden text-xs text-[#818a93] md:inline">Saturday, October 17, 2026</span><span className="h-6 w-px bg-[#e7e3dc]" /><span className="grid size-9 place-items-center rounded-full bg-[#111821] text-[11px] font-semibold text-white">JD</span><span className="hidden text-sm font-medium sm:block">James Davis</span></div>
+
+            <div className="flex h-[68px] items-center justify-between px-[24px] sm:h-[74px] sm:px-[40px]">
+
+              <Link
+                href="/"
+                className="flex items-center gap-[10px] rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a] lg:hidden"
+              >
+                <span className="grid size-[32px] place-items-center rounded-lg bg-[#111821] text-[#d5aa6b]">
+                  <Scissors size={16} />
+                </span>
+
+                <span className="text-xs font-semibold tracking-[0.12em]">
+                  JSL Barber
+                </span>
+              </Link>
+
+              <div className="hidden items-center gap-[8px] text-sm text-[#87909a] lg:flex">
+                <span>Workspace</span>
+                <ChevronRight size={15} />
+                <span className="font-medium text-[#273443]">
+                  Overview
+                </span>
+              </div>
+
+              <div className="flex items-center gap-[16px] sm:gap-[24px]">
+
+                <span className="hidden text-xs text-[#818a93] md:inline">
+                  Saturday, October 17, 2026
+                </span>
+
+                <span className="h-[24px] w-px bg-[#e7e3dc]" />
+
+                <span className="grid size-[36px] place-items-center rounded-full bg-[#111821] text-[11px] font-semibold text-white">
+                  JD
+                </span>
+
+                <span className="hidden text-sm font-medium sm:block">
+                  James Davis
+                </span>
+
+              </div>
+
             </div>
-            <nav aria-label="Mobile admin navigation" className="flex items-stretch gap-1 overflow-x-auto border-t border-[#efede8] px-3 py-2 lg:hidden">
-              <a href="#dashboard" className="flex min-h-10 shrink-0 items-center gap-2 rounded-lg bg-[#111821] px-3 text-xs font-medium text-white"><CalendarDays size={15} /> Overview</a>
-              <a href="#appointments" className="flex min-h-10 shrink-0 items-center gap-2 rounded-lg px-3 text-xs font-medium text-[#606b75] transition-colors hover:bg-[#f1eee8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a]"><Clock3 size={15} /> Appointments</a>
-              <Link href="/availability" className="flex min-h-10 shrink-0 items-center gap-2 rounded-lg px-3 text-xs font-medium text-[#606b75] transition-colors hover:bg-[#f1eee8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a]"><Settings2 size={15} /> Availability</Link>
+
+            <nav
+              aria-label="Mobile admin navigation"
+              className="flex items-stretch gap-[4px] overflow-x-auto border-t border-[#efede8] px-[12px] py-[8px] lg:hidden"
+            >
+
+              <a
+                href="#dashboard"
+                className="flex min-h-[40px] shrink-0 items-center gap-[8px] rounded-lg bg-[#111821] px-[12px] text-xs font-medium text-white"
+              >
+                <CalendarDays size={15} />
+                Overview
+              </a>
+
+              <a
+                href="#appointments"
+                className="flex min-h-[40px] shrink-0 items-center gap-[8px] rounded-lg px-[12px] text-xs font-medium text-[#606b75] transition-colors hover:bg-[#f1eee8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a]"
+              >
+                <Clock3 size={15} />
+                Appointments
+              </a>
+
+              <Link
+                href="/availability"
+                className="flex min-h-[40px] shrink-0 items-center gap-[8px] rounded-lg px-[12px] text-xs font-medium text-[#606b75] transition-colors hover:bg-[#f1eee8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b98a4a]"
+              >
+                <Settings2 size={15} />
+                Availability
+              </Link>
+
             </nav>
+
           </header>
 
           <div id="dashboard" className="mx-auto max-w-[1360px] px-6 py-10 sm:px-10 sm:py-12 lg:px-16 lg:py-14">
