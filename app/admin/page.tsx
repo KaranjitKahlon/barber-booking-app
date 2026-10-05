@@ -45,6 +45,28 @@ export default function AdminPage() {
               </p>
             </div>
 
+            <div className="hidden md:grid [grid-template-columns:100px_1fr_120px] [gap:20px] [background:#fcfbf9] [padding:14px_32px] [border-bottom:1px_solid_#efede8]">
+              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Time</span>
+              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Client & Service</span>
+              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4] [text-align:right]">Status</span>
+            </div>
+
+            <div className="divide-y [border-color:#f0eee9]">
+              <article className="grid [grid-template-columns:100px_1fr_120px] [gap:20px] [padding:20px_32px] items-center">
+                <div>
+                  <p className="[font-size:13px] [font-weight:600] [color:#26323d]">9:00 AM</p>
+                  <p className="[font-size:11px] [color:#959ca2] [margin-top:4px]">to 9:45 AM</p>
+                </div>
+                <div>
+                  <p className="[font-size:13px] [font-weight:600] [color:#303b46]">John Doe</p>
+                  <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">Haircut (45 min)</p>
+                </div>
+                <div className="[text-align:right]">
+                  <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
+                </div>
+              </article>
+            </div>
+
             <div className="[padding:24px_32px]">
               <p className="[font-size:14px] [color:#89919a] [text-align:center] [padding:40px_0]">No appointments today.</p>
             </div>
