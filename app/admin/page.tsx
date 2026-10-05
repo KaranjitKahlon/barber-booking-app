@@ -2,17 +2,30 @@
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AdminSidebar } from "@/components/AdminSidebar"
+import { Home, CalendarDays, LogOut } from "lucide-react"
 
 export default function AdminPage() {
   return (
-      <SidebarProvider>
+    <SidebarProvider>
       <div className="flex [width:100%]">
         <AdminSidebar />
         <main className="flex-1 [padding:24px]">
-          <header className="flex items-center [padding-bottom:16px] md:hidden">
-            <SidebarTrigger />
-            <h2 className="[font-size:18px] [font-weight:700] [margin-left:16px]">Admin Dashboard</h2>
-          </header>
+
+          {/* mobile action bar */}
+          <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">
+            <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+              <Home size={20} />
+              <span>Home</span>
+            </a>
+            <a href="/availability" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+              <CalendarDays size={20} />
+              <span>Availability</span>
+            </a>
+            <button className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer">
+              <LogOut size={20} />
+              <span>Logout</span>
+            </button>
+          </section>
 
           <section className="[margin-bottom:32px]">
             <p className="[font-size:11px] [font-weight:600] [letter-spacing:0.15em] [color:#b98a4a] [text-transform:uppercase]">
@@ -37,40 +50,58 @@ export default function AdminPage() {
             </article>
           </section>
 
-          <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [overflow:hidden]">
-            <div className="[padding:24px_32px] [border-bottom:1px_solid_#efede8]">
-              <h2 className="[font-size:17px] [font-weight:600]">Today's Appointments</h2>
-              <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">
-                {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-              </p>
+          <div className="flex flex-col md:flex-row [gap:24px]">
+
+            <div className="[flex:1.8]">
+              <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [overflow:hidden]">
+
+                <div className="[padding:24px_32px] [border-bottom:1px_solid_#efede8]">
+                  <h2 className="[font-size:17px] [font-weight:600]">Today's Appointments</h2>
+                  <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">
+                    {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                  </p>
+                </div>
+
+                <div className="hidden md:grid [grid-template-columns:100px_1fr_120px] [gap:20px] [background:#fcfbf9] [padding:14px_32px] [border-bottom:1px_solid_#efede8]">
+                  <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Time</span>
+                  <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Client & Service</span>
+                  <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4] [text-align:right]">Status</span>
+                </div>
+
+                <div className="divide-y [border-color:#f0eee9]">
+                  <article className="flex flex-col md:grid md:[grid-template-columns:100px_1fr_120px] [gap:12px] md:[gap:20px] [padding:20px_24px] md:[padding:20px_32px]">
+                    <div className="flex items-center justify-between md:block">
+                      <p className="[font-size:13px] [font-weight:600] [color:#26323d]">9:00 AM</p>
+                      <span className="md:hidden [background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
+                    </div>
+                    <div>
+                      <p className="[font-size:13px] [font-weight:600] [color:#303b46]">John Doe</p>
+                      <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">Haircut (45 min)</p>
+                    </div>
+                    <div className="hidden md:block [text-align:right]">
+                      <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
+                    </div>
+                  </article>
+                </div>
+
+              </section>
             </div>
 
-            <div className="hidden md:grid [grid-template-columns:100px_1fr_120px] [gap:20px] [background:#fcfbf9] [padding:14px_32px] [border-bottom:1px_solid_#efede8]">
-              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Time</span>
-              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4]">Client & Service</span>
-              <span className="[font-size:10px] [font-weight:600] [text-transform:uppercase] [letter-spacing:0.1em] [color:#969da4] [text-align:right]">Status</span>
+            <div className="[flex:1] flex flex-col [gap:24px]">
+
+              <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
+                <h2 className="[font-size:16px] [font-weight:600]">Today at a Glance</h2>
+                <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">Shop activity</p>
+              </section>
+
+              <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
+                <h2 className="[font-size:16px] [font-weight:600]">Upcoming Schedule</h2>
+                <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">This week</p>
+              </section>
+
             </div>
 
-            <div className="divide-y [border-color:#f0eee9]">
-              <article className="grid [grid-template-columns:100px_1fr_120px] [gap:20px] [padding:20px_32px] items-center">
-                <div>
-                  <p className="[font-size:13px] [font-weight:600] [color:#26323d]">9:00 AM</p>
-                  <p className="[font-size:11px] [color:#959ca2] [margin-top:4px]">to 9:45 AM</p>
-                </div>
-                <div>
-                  <p className="[font-size:13px] [font-weight:600] [color:#303b46]">John Doe</p>
-                  <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">Haircut (45 min)</p>
-                </div>
-                <div className="[text-align:right]">
-                  <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
-                </div>
-              </article>
-            </div>
-
-            <div className="[padding:24px_32px]">
-              <p className="[font-size:14px] [color:#89919a] [text-align:center] [padding:40px_0]">No appointments today.</p>
-            </div>
-          </section>
+          </div>
         </main>
       </div>
     </SidebarProvider>
