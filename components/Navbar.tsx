@@ -21,7 +21,7 @@ import { Button } from "./ui/button"
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between bg-[#111821] [opacity:0.9] px-6 py-4 text-[#B98A4A] [padding:16px_24px]">
+    <nav className="sticky [top:0] [z-index:50] flex items-center justify-between bg-[#111821] [opacity:0.9] px-6 py-4 text-[#B98A4A] [padding:16px_24px]">
       <Link href="/" className="text-xl font-bold">
         <Image src="/jslLogo.jpeg" alt="Barber-logo" width={60} height={60} className="rounded-full" />
       </Link>
