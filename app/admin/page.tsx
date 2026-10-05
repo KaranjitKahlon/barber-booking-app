@@ -11,7 +11,6 @@ export default function AdminPage() {
         <AdminSidebar />
         <main className="flex-1 [padding:24px]">
 
-          {/* mobile action bar */}
           <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">
             <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
               <Home size={20} />
@@ -31,7 +30,7 @@ export default function AdminPage() {
             <p className="[font-size:11px] [font-weight:600] [letter-spacing:0.15em] [color:#b98a4a] [text-transform:uppercase]">
               {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
             </p>
-            <h2 className="[font-size:28px] [font-weight:600] [margin-top:8px]">Good morning, JSL</h2>
+            <h2 className="[font-size:28px] [font-weight:600] [margin-top:8px]">Welcome Back, Jay</h2>
             <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Here's what's happening at your shop today.</p>
           </section>
 
