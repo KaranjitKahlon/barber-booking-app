@@ -42,7 +42,7 @@ export default function BookingPage() {
                 {
                     service_id: selectedService,
                     date: date,
-                    time: time,
+                    start_time: time,
                     name: name
                 }
             ])

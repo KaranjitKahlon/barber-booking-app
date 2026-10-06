@@ -55,7 +55,7 @@ export default function AdminPage() {
               <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [overflow:hidden]">
 
                 <div className="[padding:24px_32px] [border-bottom:1px_solid_#efede8]">
-                  <h2 className="[font-size:17px] [font-weight:600]">Today's Appointments</h2>
+                  <h2 className="[color:#000000] [font-size:17px] [font-weight:600]">Today's Appointments</h2>
                   <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">
                     {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
                   </p>
@@ -89,12 +89,12 @@ export default function AdminPage() {
             <div className="[flex:1] flex flex-col [gap:24px]">
 
               <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
-                <h2 className="[font-size:16px] [font-weight:600]">Today at a Glance</h2>
+                <h2 className="[color:#000000] [font-size:16px] [font-weight:600]">Today at a Glance</h2>
                 <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">Shop activity</p>
               </section>
 
               <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
-                <h2 className="[font-size:16px] [font-weight:600]">Upcoming Schedule</h2>
+                <h2 className="[color:#000000] [font-size:16px] [font-weight:600]">Upcoming Schedule</h2>
                 <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">This week</p>
               </section>
 
