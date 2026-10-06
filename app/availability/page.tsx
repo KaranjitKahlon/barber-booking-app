@@ -4,6 +4,9 @@ import { useState } from "react"
 import WeeklySchedule from "@/components/WeeklySchedule"
 import BlockedTime from "@/components/BlockedTime"
 import BlockTimeDialog from "@/components/BlockedTimeDialog"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { Home, LogOut, LayoutDashboard } from "lucide-react"
+import { AdminSidebar } from "@/components/AdminSidebar"
 
 type BlockedTimeEntry = {
   id: number
@@ -42,13 +45,33 @@ export default function AvailabilityPage() {
   }
 
   return (
-    <main className="[max-width:800px] [margin:0_auto] [padding:40px_24px]">
-      <h1 className="[font-size:28px] [font-weight:600]">Availability</h1>
-      <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Manage your regular working hours and upcoming time off.</p>
+    <SidebarProvider>
+        <AdminSidebar />
+        <div className="flex [width:100%]">
+            <main className="[max-width:800px] [margin:0_auto] [padding:40px_24px]">
+                <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">
+                    <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+                    <Home size={20} />
+                    <span>Home</span>
+                    </a>
+                    <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+                    <LayoutDashboard size={20} />
+                    <span>Dashboard</span>
+                    </a>
+                    <button className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer">
+                    <LogOut size={20} />
+                    <span>Logout</span>
+                    </button>
+                </section>
 
-      <WeeklySchedule schedule={schedule} onChange={setSchedule} />
-      <BlockedTime blockedTimes={blockedTimes} onDelete={handleDelete} onAdd={() => setDialogOpen(true)} />
-      <BlockTimeDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onSave={handleAdd} />
-    </main>
+                <h1 className="[font-size:28px] [font-weight:600]">Availability</h1>
+                <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Manage your regular working hours and upcoming time off.</p>
+
+                <WeeklySchedule schedule={schedule} onChange={setSchedule} />
+                <BlockedTime blockedTimes={blockedTimes} onDelete={handleDelete} onAdd={() => setDialogOpen(true)} />
+                <BlockTimeDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onSave={handleAdd} />
+            </main>
+        </div>
+    </SidebarProvider>
   )
 }
