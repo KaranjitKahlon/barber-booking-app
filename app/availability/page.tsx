@@ -90,7 +90,7 @@ export default function AvailabilityPage() {
 
   return (
     <SidebarProvider>
-        <AdminSidebar />
+        <AdminSidebar showReturnToDashboard/>
         <div className="flex [width:100%]">
             <main className="[max-width:800px] [margin:0_auto] [padding:40px_24px]">
                 <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">

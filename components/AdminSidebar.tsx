@@ -9,7 +9,13 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar"
 
-export function AdminSidebar() {
+type AdminSidebarProps = {
+  showReturnToDashboard?: boolean
+}
+
+export function AdminSidebar({
+    showReturnToDashboard = false,
+}: AdminSidebarProps) {
   return (
         <Sidebar className="[width:250px]">
         <SidebarHeader>
@@ -21,7 +27,23 @@ export function AdminSidebar() {
         <SidebarContent className="[flex:1]">
             <h3 className="[padding:16px] [font-size:16px] [font-weight:600]">Admin Dashboard</h3>
             <SidebarGroup />
-            <a href="/availability" className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors">Manage Availability</a>
+
+            {showReturnToDashboard ? (
+                <a
+                    href="/admin"
+                    className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors"
+                >
+                    Return to Dashboard
+                </a>
+                ) : (
+                <a
+                    href="/availability"
+                    className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors"
+                >
+                    Manage Availability
+                </a>
+            )}
+            
             <a
             onClick={async () => {
                 await supabase.auth.signOut()
