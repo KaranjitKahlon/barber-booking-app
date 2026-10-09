@@ -18,14 +18,9 @@ type BlockedTimeEntry = {
   end: string | null
 }
 
-const initialBlockedTimes: BlockedTimeEntry[] = [
-  { id: 1, date: "October 8, 2026", allDay: true, start: null, end: null },
-  { id: 2, date: "October 15, 2026", allDay: false, start: "1:00 PM", end: "3:00 PM" },
-]
-
 export default function AvailabilityPage() {
   const [schedule, setSchedule] = useState<any[]>([])
-  const [blockedTimes, setBlockedTimes] = useState(initialBlockedTimes)
+  const [blockedTimes, setBlockedTimes] = useState<BlockedTimeEntry[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
 
   useEffect(() => {
@@ -51,33 +46,75 @@ export default function AvailabilityPage() {
     fetchSchedule()
   }, [])
 
-  async function handleSaveSchedule() {
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    async function handleSaveSchedule() {
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-    for (const row of schedule) {
-      const dayIndex = days.indexOf(row.day)
+      for (const row of schedule) {
+        const dayIndex = days.indexOf(row.day)
 
-      const { data, error } = await supabase
-        .from("weekly_availability")
-        .update({
-          is_available: row.isOpen,
-          start_time: row.isOpen ? convertTo24Hour(row.start) : null,
-          end_time: row.isOpen ? convertTo24Hour(row.end) : null,
-        })
-        .eq("day_of_week", dayIndex)
-        .select()
-      
-      console.log("Result: ", data, error)
+        const { data, error } = await supabase
+          .from("weekly_availability")
+          .update({
+            is_available: row.isOpen,
+            start_time: row.isOpen ? convertTo24Hour(row.start) : null,
+            end_time: row.isOpen ? convertTo24Hour(row.end) : null,
+          })
+          .eq("day_of_week", dayIndex)
+          .select()
+        
+        console.log("Result: ", data, error)
+      }
+      console.log("Schedule saved")
     }
-    console.log("Schedule saved")
+
+    async function fetchBlockedTimes() {
+      const { data, error } = await supabase
+        .from("availability_exceptions")
+        .select("*")
+        .order("date")
+      if (error) {
+        console.log("Error fetching blocked times: ", error)
+      } else {
+        const formatted = data.map((row: any) => ({
+          id: row.id,
+          date: new Date(row.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+          allDay: row.all_day,
+          start: row.start_time ? formatTime(row.start_time.slice(0, 5)) : null,
+          end: row.end_time ? formatTime(row.end_time.slice(0, 5)) : null,
+        }))
+        setBlockedTimes(formatted)
+      }
+    }
+
+  async function handleDelete(id: number) {
+    const { data, error } = await supabase
+      .from("availability_exceptions")
+      .delete()
+      .eq("id", id)
+    
+    if (error) {
+      console.log("Error deleting blocked time: ", error)
+    } else {
+      setBlockedTimes(blockedTimes.filter((b) => b.id !== id))
+    }
   }
 
-  function handleDelete(id: number) {
-    setBlockedTimes(blockedTimes.filter((b) => b.id !== id))
-  }
+  async function handleAdd(entry: Omit<BlockedTimeEntry, "id">) {
+    const { data, error } = await supabase
+      .from("availability_exceptions")
+      .insert([{
+        date: new Date(entry.date).toISOString().split("T")[0],
+        all_day: entry.allDay,
+        start_time: entry.start ? convertTo24Hour(entry.start) : null,
+        end_time: entry.end ? convertTo24Hour(entry.end) : null,
+      }])
+      .select()
 
-  function handleAdd(entry: Omit<BlockedTimeEntry, "id">) {
-    setBlockedTimes([...blockedTimes, { id: Date.now(), ...entry }])
+    if (error) {
+      console.log("Error adding blocked time: ", error)
+    } else {
+      setBlockedTimes([...blockedTimes, { id: data[0].id, ...entry }])
+    }
   }
 
   function convertTo24Hour(time: string): string {

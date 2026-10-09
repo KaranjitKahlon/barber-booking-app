@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import ConfirmAnimation from "@/components/ConfirmAnimation"
 import Link from "next/link"
 import { supabase } from "@/lib/supabase";
-import { timeSlots } from "@/lib/timeSlots";
+import { getAvailableSlots } from "@/lib/availability"
 import { formatTime } from "@/lib/timeSlots";
 
 
@@ -20,6 +20,7 @@ export default function BookingPage() {
     const [date, setDate] = useState<Date | null>(null)
     const [time, setTime] = useState<string | null>(null)
     const [name, setName] = useState<string | null>(null)
+    const [availableSlots, setAvailableSlots] = useState<string[]>([])
 
     useEffect(() => {
         async function fetchServices() {
@@ -34,6 +35,15 @@ export default function BookingPage() {
         fetchServices()
     }, [])
 
+    useEffect(() => {
+            if (!date || !selectedService) return
+
+            async function fetchSlots() {
+                const slots = await getAvailableSlots(date!, selectedService!)
+                setAvailableSlots(slots)
+            }
+            fetchSlots()
+            }, [date, selectedService])
 
     async function handleConfirm() {
         const { data, error } = await supabase
@@ -82,7 +92,7 @@ export default function BookingPage() {
                 
                 {date && (
                     <div className="grid [grid-template-columns:repeat(2,1fr)] md:[grid-template-columns:repeat(4,1fr)] [gap:12px] [margin-top:70px] [max-width:500px]">
-                        {timeSlots.map((slot) => (
+                        {availableSlots.map((slot) => (
                             <Button 
                                 key={slot} 
                                 onClick={() => setTime(slot)} 
