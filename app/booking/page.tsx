@@ -21,6 +21,7 @@ export default function BookingPage() {
     const [time, setTime] = useState<string | null>(null)
     const [name, setName] = useState<string | null>(null)
     const [availableSlots, setAvailableSlots] = useState<string[]>([])
+    const [blockedDates, setBlockedDates] = useState<string[]>([])
 
     useEffect(() => {
         async function fetchServices() {
@@ -33,6 +34,23 @@ export default function BookingPage() {
             }
         }
         fetchServices()
+    }, [])
+
+    useEffect(() => {
+        async function fetchBlockedDates() {
+            const { data, error } = await supabase
+                .from("availability_exceptions")
+                .select("date")
+                .eq("all_day", true)
+
+            if (error) {
+                console.error("Error fetching fully blocked dates: ", error)
+                return
+            }
+
+            setBlockedDates(data.map((row) => row.date))
+        }
+        fetchBlockedDates()
     }, [])
 
     useEffect(() => {
@@ -82,10 +100,10 @@ export default function BookingPage() {
 
         if (error) {
             console.error(error)
-            return false                 // was missing
+            return false
         }
 
-        return true                      // was missing
+        return true
     }
 
     return (
@@ -113,19 +131,31 @@ export default function BookingPage() {
             {step === 2 && (
                 <section className="flex flex-col items-center text-center [padding:60px_24px]">
                 <h2>Choose Date and Time</h2>
-                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
+                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} blockedDates={blockedDates} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
                 
                 {date && (
-                    <div className="grid [grid-template-columns:repeat(2,1fr)] md:[grid-template-columns:repeat(4,1fr)] [gap:12px] [margin-top:70px] [max-width:500px]">
-                        {availableSlots.map((slot) => (
-                            <Button 
-                                key={slot} 
-                                onClick={() => setTime(slot)} 
-                                className={`rounded-none [padding:12px_16px] text-sm ${time === slot ? "bg-[#b98a4a] text-[#111821] hover:bg-[#cda064]" : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"}`}
-                            >
-                                {formatTime(slot)}
-                            </Button>
-                        ))}
+                    <div className="w-full [max-width:600px] [margin-top:70px]">
+                        <h3 className="mb-4 text-left text-sm font-medium text-[#dee2e6]">
+                            Available Times
+                        </h3>
+
+                        <div className="w-full overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                            <div className="flex w-max [gap:12px] [padding-bottom:8px]">
+                                {availableSlots.map((slot) => (
+                                    <Button
+                                        key={slot}
+                                        onClick={() => setTime(slot)}
+                                        className={`shrink-0 rounded-none [min-width:100px] [padding:12px_16px] text-sm ${
+                                            time === slot
+                                                ? "bg-[#b98a4a] text-[#111821] hover:bg-[#cda064]"
+                                                : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"
+                                        }`}
+                                    >
+                                        {formatTime(slot)}
+                                    </Button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
 

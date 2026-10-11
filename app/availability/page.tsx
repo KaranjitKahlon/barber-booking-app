@@ -44,6 +44,7 @@ export default function AvailabilityPage() {
       }
     }
     fetchSchedule()
+    fetchBlockedTimes()
   }, [])
 
     async function handleSaveSchedule() {
