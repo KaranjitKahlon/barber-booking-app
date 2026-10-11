@@ -45,22 +45,47 @@ export default function BookingPage() {
             fetchSlots()
             }, [date, selectedService])
 
-    async function handleConfirm() {
-        const { data, error } = await supabase
-            .from("bookings")
-            .insert([
-                {
-                    service_id: selectedService,
-                    date: date,
-                    start_time: time,
-                    name: name
-                }
-            ])
+    async function handleConfirm(): Promise<boolean> {
+        if (!date || !selectedService || !time || !name) return false
+
+        const { data: serviceData, error: serviceError } = await supabase
+            .from("services")
+            .select("duration_minutes")
+            .eq("id", selectedService)
+            .single()
+
+        if (serviceError || !serviceData) {
+            console.error("Error fetching service duration:", serviceError)
+            return false
+        }
+
+        const [hour, minute] = time.split(":").map(Number)
+        const endMinutes = hour * 60 + minute + serviceData.duration_minutes
+        const endTime =
+            `${Math.floor(endMinutes / 60).toString().padStart(2, "0")}:` +
+            `${(endMinutes % 60).toString().padStart(2, "0")}`
+
+        const dateString =
+            `${date.getFullYear()}-` +
+            `${(date.getMonth() + 1).toString().padStart(2, "0")}-` +
+            `${date.getDate().toString().padStart(2, "0")}`
+
+        const { error } = await supabase.from("bookings").insert([
+            {
+                service_id: selectedService,
+                date: dateString,        // was `date`, which sent a full timestamp
+                start_time: time,
+                end_time: endTime,
+                name: name,
+            },
+        ])
+
         if (error) {
             console.error(error)
-        } else {
-            console.log("Booking Saved!", data)
+            return false                 // was missing
         }
+
+        return true                      // was missing
     }
 
     return (
@@ -120,7 +145,18 @@ export default function BookingPage() {
                 />
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
                     <Button onClick={() => { setStep(2); setName(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px]">Back</Button>
-                    <Button disabled={!name} onClick={() => { setStep(4); handleConfirm(); }} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px]">Confirm</Button>
+                    <Button
+                        className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px]"
+                        disabled={!name}
+                        onClick={async () => {
+                            const success = await handleConfirm()
+                            if (success) {
+                                setStep(4)
+                            }
+                        }}
+                    >
+                        Confirm
+                    </Button>
                 </div>
             </section>
             )}

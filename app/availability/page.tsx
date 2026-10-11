@@ -51,6 +51,7 @@ export default function AvailabilityPage() {
 
       for (const row of schedule) {
         const dayIndex = days.indexOf(row.day)
+        console.log("Saving schedule row:", row)
 
         const { data, error } = await supabase
           .from("weekly_availability")
@@ -118,11 +119,26 @@ export default function AvailabilityPage() {
   }
 
   function convertTo24Hour(time: string): string {
-    const [timePart, period] = time.split(" ")
+    const trimmedTime = time.trim()
+
+    // Already in 24-hour format, such as "17:00"
+    if (!trimmedTime.includes("AM") && !trimmedTime.includes("PM")) {
+      const [hour, minute] = trimmedTime.split(":").map(Number)
+
+      return `${hour.toString().padStart(2, "0")}:${minute
+        .toString()
+        .padStart(2, "0")}`
+    }
+
+    const [timePart, period] = trimmedTime.split(" ")
     let [hour, minute] = timePart.split(":").map(Number)
+
     if (period === "PM" && hour !== 12) hour += 12
     if (period === "AM" && hour === 12) hour = 0
-    return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`
+
+    return `${hour.toString().padStart(2, "0")}:${minute
+      .toString()
+      .padStart(2, "0")}`
   }
 
   return (

@@ -21,6 +21,7 @@ function minutesToTime(minutes: number): string { // convert the string of minut
 }
 
 export async function getAvailableSlots(date: Date, serviceId: string): Promise<string[]> {
+    const test = await supabase.from("services").select("*")
     const dayOfWeek = date.getDay()
     const dateString = date.toISOString().split("T")[0]
 
@@ -34,6 +35,8 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
     if (dayError || !dayData) {
         return [] // shop closed
     }
+
+    console.log("Weekly availability:", dayData)
 
     if (!dayData.is_available || !dayData.start_time || !dayData.end_time) {
         return [] // closed or no hours set
@@ -50,8 +53,8 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
     const duration = serviceData.duration_minutes
 
     // generate all 15 min blocks in working hours
-    const workStart = timeToMinutes(dayData.start_time.slice(0, 5))
-    const workEnd = timeToMinutes(dayData.end_time.slice(0, 5))
+    const workStart = timeToMinutes(dayData.start_time)
+    const workEnd = timeToMinutes(dayData.end_time)
 
     const allSlots: number[] = []
     for (let t = workStart; t + duration <= workEnd; t += 15) {
@@ -65,10 +68,10 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
         .eq("date", dateString)
 
     // fetch existing bookings for the date
-    const { data: bookings } = await supabase
+    const { data: bookings, error: bookingsError } = await supabase
         .from("bookings")
-        .select("start_time, end_time")
-        .eq("date", dateString)
+        .select("id, date, start_time, end_time, service_id")
+        .eq("date", dateString);
 
     // filter unavailable slots
     const availableSlots = allSlots.filter((slotStart) => {
