@@ -8,6 +8,7 @@ type BookCalendarProps = {
   onSelect?: (date: Date | undefined) => void
   disabled?: (date: Date) => boolean
   blockedDates?: string[]
+  closedDays?: number[]
 }
 
 export default function BookCalendar({
@@ -15,6 +16,7 @@ export default function BookCalendar({
   selected,
   onSelect,
   blockedDates = [],
+  closedDays = [],
 }: BookCalendarProps) {
   return (
     <Calendar
@@ -28,7 +30,7 @@ export default function BookCalendar({
           String(date.getDate()).padStart(2, "0"),
         ].join("-")
 
-        return date < today || blockedDates.includes(dateString)
+        return date < today || blockedDates.includes(dateString) || closedDays.includes(date.getDay())
       }}
       mode="single"
       className={`rounded-lg border [padding:16px] ${className ?? ""}`}

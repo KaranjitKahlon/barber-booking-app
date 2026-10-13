@@ -3,6 +3,7 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AdminSidebar } from "@/components/AdminSidebar"
 import { Home, CalendarDays, LogOut } from "lucide-react"
+import { supabase } from "@/lib/supabase"
 
 export default function AdminPage() {
   return (
@@ -20,7 +21,13 @@ export default function AdminPage() {
               <CalendarDays size={20} />
               <span>Availability</span>
             </a>
-            <button className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer">
+            <button 
+              onClick={async () => {
+                await supabase.auth.signOut()
+                window.location.href = "/login"
+              }}
+              className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer"
+            >
               <LogOut size={20} />
               <span>Logout</span>
             </button>

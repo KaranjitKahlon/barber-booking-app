@@ -156,9 +156,15 @@ export default function AvailabilityPage() {
                     <LayoutDashboard size={20} />
                     <span>Dashboard</span>
                     </a>
-                    <button className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer">
-                    <LogOut size={20} />
-                    <span>Logout</span>
+                    <button 
+                      onClick={async () => {
+                        await supabase.auth.signOut()
+                        window.location.href = "/login"
+                      }}
+                      className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer"
+                    >
+                      <LogOut size={20} />
+                      <span>Logout</span>
                     </button>
                 </section>
 

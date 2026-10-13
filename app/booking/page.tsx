@@ -22,6 +22,7 @@ export default function BookingPage() {
     const [name, setName] = useState<string | null>(null)
     const [availableSlots, setAvailableSlots] = useState<string[]>([])
     const [blockedDates, setBlockedDates] = useState<string[]>([])
+    const [closedDays, setClosedDays] = useState<number[]>([])
 
     useEffect(() => {
         async function fetchServices() {
@@ -50,7 +51,18 @@ export default function BookingPage() {
 
             setBlockedDates(data.map((row) => row.date))
         }
+
+        async function fetchClosedDays() {
+            const { data } = await supabase
+                .from("weekly_availability")
+                .select("day_of_week")
+                .eq("is_available", false)
+            
+            if (data) setClosedDays(data.map((row) => row.day_of_week))
+        }
+
         fetchBlockedDates()
+        fetchClosedDays()
     }, [])
 
     useEffect(() => {
@@ -131,7 +143,7 @@ export default function BookingPage() {
             {step === 2 && (
                 <section className="flex flex-col items-center text-center [padding:60px_24px]">
                 <h2>Choose Date and Time</h2>
-                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} blockedDates={blockedDates} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
+                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} blockedDates={blockedDates} closedDays={closedDays} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
                 
                 {date && (
                     <div className="w-full [max-width:600px] [margin-top:70px]">
