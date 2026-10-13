@@ -12,7 +12,7 @@ export default function AdminPage() {
         <AdminSidebar />
         <main className="flex-1 [padding:24px]">
 
-          <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">
+          <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
             <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
               <Home size={20} />
               <span>Home</span>
@@ -26,7 +26,7 @@ export default function AdminPage() {
                 await supabase.auth.signOut()
                 window.location.href = "/login"
               }}
-              className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer"
+              className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer underline"
             >
               <LogOut size={20} />
               <span>Logout</span>

@@ -147,7 +147,7 @@ export default function AvailabilityPage() {
         <AdminSidebar showReturnToDashboard/>
         <div className="flex [width:100%]">
             <main className="[max-width:800px] [margin:0_auto] [padding:40px_24px]">
-                <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [border-radius:12px] [margin-bottom:24px]">
+                <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
                     <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
                     <Home size={20} />
                     <span>Home</span>
@@ -161,14 +161,17 @@ export default function AvailabilityPage() {
                         await supabase.auth.signOut()
                         window.location.href = "/login"
                       }}
-                      className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer"
+                      className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer underline"
                     >
                       <LogOut size={20} />
                       <span>Logout</span>
                     </button>
                 </section>
 
-                <h1 className="[font-size:28px] [font-weight:600]">Availability</h1>
+                <p className="[font-size:11px] [font-weight:600] [letter-spacing:0.15em] [color:#b98a4a] [text-transform:uppercase]">
+                  {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+                </p>
+                <h1 className="[font-size:28px] [font-weight:600] [margin-top:8px]">Availability</h1>
                 <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Manage your regular working hours and upcoming time off.</p>
 
                 <WeeklySchedule schedule={schedule} onChange={setSchedule} onSave={handleSaveSchedule} />
