@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.className}>
-      <body className="[margin:0]">
+    <html lang="en" className={roboto.className} style={{ height: '100%' }}>
+      <body style={{ height: '100%', overscrollBehavior: 'none' }}>
           <Navbar />
           {children}
           <footer className="flex flex-col items-center text-center [padding:60px_24px]">
