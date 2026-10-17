@@ -5,7 +5,7 @@ import WeeklySchedule from "@/components/WeeklySchedule"
 import BlockedTime from "@/components/BlockedTime"
 import BlockTimeDialog from "@/components/BlockedTimeDialog"
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { Home, LogOut, LayoutDashboard } from "lucide-react"
+import { Home, LogOut, LayoutDashboard, Scissors, CalendarDays } from "lucide-react"
 import { AdminSidebar } from "@/components/AdminSidebar"
 import { supabase } from "@/lib/supabase"
 import { formatTime } from "@/lib/timeSlots"
@@ -29,6 +29,7 @@ export default function AvailabilityPage() {
         .from("weekly_availability")
         .select("*")
         .order("day_of_week")
+
       if (error) {
         console.error(error)
       } else {
@@ -74,6 +75,7 @@ export default function AvailabilityPage() {
         .from("availability_exceptions")
         .select("*")
         .order("date")
+
       if (error) {
         console.log("Error fetching blocked times: ", error)
       } else {
@@ -144,17 +146,21 @@ export default function AvailabilityPage() {
 
   return (
     <SidebarProvider>
-        <AdminSidebar showReturnToDashboard/>
+        <AdminSidebar />
         <div className="flex [width:100%]">
-            <main className="[max-width:800px] [margin:0_auto] [padding:40px_24px]">
+            <main className="flex-1 [padding:24px]">
                 <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
-                    <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-                    <Home size={20} />
-                    <span>Home</span>
-                    </a>
                     <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-                    <LayoutDashboard size={20} />
-                    <span>Dashboard</span>
+                      <LayoutDashboard size={20} />
+                      <span>Dashboard</span>
+                    </a>
+                    <a href="/availability" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+                      <CalendarDays size={20} />
+                      <span>Availability</span>
+                    </a>
+                    <a href="/pricingAndServices" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+                      <Scissors size={20} />
+                      <span>Edit Services</span>
                     </a>
                     <button 
                       onClick={async () => {

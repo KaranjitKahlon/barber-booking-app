@@ -29,21 +29,15 @@ export function AdminSidebar({
             <h3 className="[padding:16px] [font-size:16px] [font-weight:600]">Admin Dashboard</h3>
             <SidebarGroup />
 
-            {showReturnToDashboard ? (
-                <a
-                    href="/admin"
-                    className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors"
-                >
-                    Return to Dashboard
+                <a href="/admin" className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors">
+                    Dashboard
                 </a>
-                ) : (
-                <a
-                    href="/availability"
-                    className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors"
-                >
+                <a href="/availability" className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors">
                     Manage Availability
                 </a>
-            )}
+                <a href="/pricingAndServices" className="[padding:16px] [font-size:14px] [font-weight:400] text-[#ffffff] hover:bg-[#adb5bd] transition-colors">
+                    Edit Services
+                </a>
             
             <Button
             onClick={async () => {

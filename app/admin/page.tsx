@@ -2,7 +2,7 @@
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AdminSidebar } from "@/components/AdminSidebar"
-import { Home, CalendarDays, LogOut } from "lucide-react"
+import { Home, CalendarDays, LogOut, Scissors, LayoutDashboard } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 
 export default function AdminPage() {
@@ -13,13 +13,17 @@ export default function AdminPage() {
         <main className="flex-1 [padding:24px]">
 
           <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
-            <a href="/" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-              <Home size={20} />
-              <span>Home</span>
+            <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+              <LayoutDashboard size={20} />
+              <span>Dashboard</span>
             </a>
             <a href="/availability" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
               <CalendarDays size={20} />
               <span>Availability</span>
+            </a>
+            <a href="/pricingAndServices" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
+              <Scissors size={20} />
+              <span>Edit Services</span>
             </a>
             <button 
               onClick={async () => {
@@ -44,15 +48,15 @@ export default function AdminPage() {
           <section className="grid [grid-template-columns:repeat(1,1fr)] md:[grid-template-columns:repeat(3,1fr)] [gap:16px] [margin-bottom:32px]">
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">Today's Appointments</p>
-              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">0</strong>
+              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">6</strong>
             </article>
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">This Week</p>
-              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">0</strong>
+              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">23</strong>
             </article>
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">Open Slots Today</p>
-              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">0</strong>
+              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">12</strong>
             </article>
           </section>
 
