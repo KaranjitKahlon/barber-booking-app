@@ -1,7 +1,7 @@
 
 import { supabase } from "@/lib/supabase"
 
-function timeToMinutes(time: string): number { // convert readable time to a string of minutes
+export function timeToMinutes(time: string): number { // convert readable time to a string of minutes
     if (time.includes("AM") || time.includes("PM")) {
         const [timePart, period] = time.split(" ")
         let [hour, minute] = timePart.split(":").map(Number)

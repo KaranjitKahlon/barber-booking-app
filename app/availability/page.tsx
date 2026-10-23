@@ -9,6 +9,7 @@ import { Home, LogOut, LayoutDashboard, Scissors, CalendarDays } from "lucide-re
 import { AdminSidebar } from "@/components/AdminSidebar"
 import { supabase } from "@/lib/supabase"
 import { formatTime } from "@/lib/timeSlots"
+import { timeToMinutes } from "@/lib/availability"
 
 type BlockedTimeEntry = {
   id: number
@@ -22,6 +23,7 @@ export default function AvailabilityPage() {
   const [schedule, setSchedule] = useState<any[]>([])
   const [blockedTimes, setBlockedTimes] = useState<BlockedTimeEntry[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [blockError, setBlockError] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchSchedule() {
@@ -104,6 +106,44 @@ export default function AvailabilityPage() {
   }
 
   async function handleAdd(entry: Omit<BlockedTimeEntry, "id">) {
+    setBlockError(null)
+
+    const dateString = new Date(entry.date).toISOString().split("T")[0]
+
+    const { data: existingBookings, error: fetchError } = await supabase
+      .from("bookings")
+      .select("start_time, end_time")
+      .eq("date", dateString)
+
+    if (fetchError) {
+      setBlockError("Failed to check existing bookings. Please try again.")
+      return
+    }
+
+    if (existingBookings && existingBookings.length > 0) {
+      if (entry.allDay) {
+        setBlockError("Cannot block this day - there are existing appointments. Contact customers to reschedule first.")
+        return
+      }
+
+      if (entry.start && entry.end) {
+        const blockStartMins = timeToMinutes(convertTo24Hour(entry.start))
+        const blockEndMins = timeToMinutes(convertTo24Hour(entry.end))
+
+        for (const booking of existingBookings) {
+          if (!booking.start_time || !booking.end_time) continue
+          const bookStart = timeToMinutes(booking.start_time.slice(0, 5))
+          const bookEnd = timeToMinutes(booking.end_time.slice(0, 5))
+
+          if (blockStartMins < bookEnd && blockEndMins > bookStart) {
+            setBlockError(`Cannot block this time - it overlaps an existing appointment between ${formatTime(booking.start_time.slice(0, 5))} and ${formatTime(booking.end_time.slice(0, 5))}.`)
+            return
+          }
+        }
+      }
+    }
+
+    // no conflicts so continue with block day/time insert
     const { data, error } = await supabase
       .from("availability_exceptions")
       .insert([{
@@ -118,6 +158,7 @@ export default function AvailabilityPage() {
       console.log("Error adding blocked time: ", error)
     } else {
       setBlockedTimes([...blockedTimes, { id: data[0].id, ...entry }])
+      setDialogOpen(false)
     }
   }
 
@@ -182,7 +223,7 @@ export default function AvailabilityPage() {
 
                 <WeeklySchedule schedule={schedule} onChange={setSchedule} onSave={handleSaveSchedule} />
                 <BlockedTime blockedTimes={blockedTimes} onDelete={handleDelete} onAdd={() => setDialogOpen(true)} />
-                <BlockTimeDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onSave={handleAdd} />
+                <BlockTimeDialog open={dialogOpen} onClose={() => { setDialogOpen(false); setBlockError(null) }} onSave={handleAdd} error={blockError} />
             </main>
         </div>
     </SidebarProvider>

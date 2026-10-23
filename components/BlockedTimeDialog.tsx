@@ -9,6 +9,7 @@ type BlockTimeDialogProps = {
   open: boolean
   onClose: () => void
   onSave: (entry: { date: string; allDay: boolean; start: string | null; end: string | null }) => void
+  error?: string | null 
 }
 
 const timeOptions = [
@@ -17,7 +18,7 @@ const timeOptions = [
   "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM"
 ]
 
-export default function BlockTimeDialog({ open, onClose, onSave }: BlockTimeDialogProps) {
+export default function BlockTimeDialog({ open, onClose, onSave, error }: BlockTimeDialogProps) {
   const [date, setDate] = useState<Date | null>(null)
   const [allDay, setAllDay] = useState(true)
   const [start, setStart] = useState("9:00 AM")
@@ -81,6 +82,9 @@ export default function BlockTimeDialog({ open, onClose, onSave }: BlockTimeDial
           )}
         </div>
 
+        { error && (
+          <p className="[font-size:13px] [color:#e05c5c] [margin-top:8px]">{error}</p>
+        )}
         <DialogFooter className="flex [gap:12px]">
           <Button onClick={onClose} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:10px_20px]">
             Cancel

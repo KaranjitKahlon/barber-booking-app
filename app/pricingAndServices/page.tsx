@@ -16,7 +16,7 @@ type Service = {
 }
 
 export default function ServicesAndPricingPage() {
-    const [services, setSservices] = useState<Service[]>([])
+    const [services, setServices] = useState<Service[]>([])
 
     useEffect(() => {
         async function fetchServices() {
@@ -27,7 +27,7 @@ export default function ServicesAndPricingPage() {
             if (error) {
                 console.error(error)
             } else {
-                setSservices(data)
+                setServices(data)
             }
         }
         fetchServices()
