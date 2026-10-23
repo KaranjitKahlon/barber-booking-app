@@ -5,7 +5,7 @@ import WeeklySchedule from "@/components/WeeklySchedule"
 import BlockedTime from "@/components/BlockedTime"
 import BlockTimeDialog from "@/components/BlockedTimeDialog"
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { Home, LogOut, LayoutDashboard, Scissors, CalendarDays } from "lucide-react"
+import { LogOut, LayoutDashboard, Scissors, CalendarDays } from "lucide-react"
 import { AdminSidebar } from "@/components/AdminSidebar"
 import { supabase } from "@/lib/supabase"
 import { formatTime } from "@/lib/timeSlots"
@@ -40,8 +40,8 @@ export default function AvailabilityPage() {
           id: row.id,
           day: days[row.day_of_week],
           isOpen: row.is_available,
-          start: row.start_time ? formatTime(row.start_time.slice(0, 5)) : "9:00",
-          end: row.end_time ? formatTime(row.end_time.slice(0, 5)) : "5:00",
+          start: row.start_time ? formatTime(row.start_time.slice(0, 5)) : "9:00 AM",
+          end: row.end_time ? formatTime(row.end_time.slice(0, 5)) : "5:00 PM",
         }))
         setSchedule(formatted)
       }
@@ -55,8 +55,6 @@ export default function AvailabilityPage() {
 
       for (const row of schedule) {
         const dayIndex = days.indexOf(row.day)
-        console.log("Saving schedule row:", row)
-
         const { data, error } = await supabase
           .from("weekly_availability")
           .update({
