@@ -6,6 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { CalendarDays, LayoutDashboard, LogOut, Scissors, Sidebar } from "lucide-react";
 import { supabase } from "@/lib/supabase"
 import { Button } from "@/components/ui/button"
+//import { ServiceDialog } from "@/components/ServiceDialog"
 
 type Service = {
   id: string
@@ -17,6 +18,9 @@ type Service = {
 
 export default function ServicesAndPricingPage() {
     const [services, setServices] = useState<Service[]>([])
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const [selectedService, setSelectedService] = useState<Service | null>(null)
+    const [serviceError, setServiceError] = useState<string | null>(null)
 
     useEffect(() => {
         async function fetchServices() {
@@ -32,6 +36,46 @@ export default function ServicesAndPricingPage() {
         }
         fetchServices()
     }, [])
+
+    async function handleSave(data: Omit<Service, "id">) {
+    setServiceError(null)
+    if (selectedService) {
+        const { error } = await supabase
+        .from("services")
+        .update(data)
+        .eq("id", selectedService.id)
+        if (error) {
+        setServiceError("Failed to save changes.")
+        } else {
+        setServices(services.map((s) => s.id === selectedService.id ? { ...s, ...data } : s))
+        setDialogOpen(false)
+        setSelectedService(null)
+        }
+    } else {
+        const newId = data.title.toLowerCase().replace(/\s+/g, "-")
+        const { error } = await supabase
+        .from("services")
+        .insert([{ id: newId, ...data }])
+        if (error) {
+        setServiceError("Failed to add service.")
+        } else {
+        setServices([...services, { id: newId, ...data }])
+        setDialogOpen(false)
+        }
+    }
+    }
+
+    async function handleDelete(id: string) {
+    const { error } = await supabase
+        .from("services")
+        .delete()
+        .eq("id", id)
+    if (error) {
+        console.error(error)
+    } else {
+        setServices(services.filter((s) => s.id !== id))
+    }
+    }
 
     return (
         <SidebarProvider>
@@ -98,9 +142,20 @@ export default function ServicesAndPricingPage() {
                             <p className="[font-size:13px] [color:#737d87]">{service.duration_minutes} min</p>
                             <p className="[font-size:13px] [font-weight:600] [color:#303b46]">${service.price}</p>
                             <div className="md:[text-align:right]">
-                                <Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:8px_16px] [font-size:12px]">
+                               <Button
+                                onClick={() => { setSelectedService(service); setDialogOpen(true) }}
+                                className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:8px_16px] [font-size:12px]"
+                                >
                                 Edit
                                 </Button>
+                            </div>
+                            <div className="">
+                                <button
+                                onClick={() => handleDelete(service.id)}
+                                className="[font-size:12px] [color:#e05c5c] hover:[color:#c0392b] [background:none] [border:none] cursor-pointer [font-weight:600]"
+                                >
+                                Delete
+                                </button>
                             </div>
                             </article>
                         ))}
@@ -112,6 +167,17 @@ export default function ServicesAndPricingPage() {
                         )}
                         </div>
 
+                    </section>
+
+                    <section>
+                        <div className="[padding:24px_32px] flex items-center justify-between">
+                            <Button
+                            onClick={() => { setSelectedService(null); setDialogOpen(true) }}
+                            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:8px_16px] [font-size:12px]"
+                            >
+                            + Add Service
+                            </Button>
+                        </div>
                     </section>
                 </main>
             </div>

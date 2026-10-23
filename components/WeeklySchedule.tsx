@@ -46,9 +46,13 @@ export default function WeeklySchedule({ schedule, onChange, onSave }: WeeklySch
       </div>
 
       <div className="[padding:24px_32px] [border-top:1px_solid_#efede8]">
-        <Button onClick={onSave} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">
+        <Button onClick={onSave} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">
           Save Schedule
         </Button>
+
+        <span className="[font-size:13px] [color:#15803d] [margin-top:32px] [margin-left:16px]">
+          Saved successfully.
+        </span>
       </div>
     </section>
   )
