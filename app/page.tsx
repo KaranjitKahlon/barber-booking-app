@@ -37,7 +37,7 @@ export default function Home() {
 
       <section id="services" className="flex flex-col items-center text-center [padding:60px_24px]">
         <h1>Services</h1>
-        <h2>Explore our range of premium barbering services.</h2> { /*going to change the title, desc, price from text to variables, interpolation*/ }
+        <h2>Explore our range of premium barbering services.</h2>
         <div className="flex flex-col md:flex-row [gap:24px] mt-8">
             {services.map((services) => (
                 <ServiceCard
@@ -54,8 +54,8 @@ export default function Home() {
       <section id="hours-location" className="flex flex-col items-center text-center [padding:60px_24px]">
         <h1>Hours & Location</h1>
         <h2>Business Hours</h2>
-        <p className="mt-4 max-w-[600px]">Monday - Friday: 9:00 AM - 7:00 PM</p>
-        <p className="mt-2 max-w-[600px]">Saturday: 9:00 AM - 5:00 PM</p>
+        <p className="mt-4 max-w-[600px]">Monday - Friday: 9:00 AM - 5:00 PM</p>
+        <p className="mt-2 max-w-[600px]">Saturday: 9:00 AM - 3:00 PM</p>
         <p className="mt-2 max-w-[600px]">Sunday: Closed</p>
         <p className="mt-2 max-w-[600px]">1005 E Pescadero Ave #155, Tracy, CA 95304</p>
       </section>

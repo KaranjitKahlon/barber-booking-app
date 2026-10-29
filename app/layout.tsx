@@ -25,7 +25,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <footer className="flex flex-col items-center text-center [padding:60px_24px]">
-          <p className="[font-size:12px]">&copy; 2026 Fresh Cuts. All rights reserved.</p>
+          <p className="[font-size:12px]">&copy; 2026 JSL Barber. All rights reserved.</p>
           </footer>
       </body>
     </html>

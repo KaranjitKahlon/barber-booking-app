@@ -6,7 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { CalendarDays, LayoutDashboard, LogOut, Scissors, Sidebar } from "lucide-react";
 import { supabase } from "@/lib/supabase"
 import { Button } from "@/components/ui/button"
-//import { ServiceDialog } from "@/components/ServiceDialog"
+import ServiceDialog from "@/components/ServiceDialog"
 
 type Service = {
   id: string
@@ -181,6 +181,14 @@ export default function ServicesAndPricingPage() {
                     </section>
                 </main>
             </div>
+
+             <ServiceDialog
+                open={dialogOpen}
+                onClose={() => { setDialogOpen(false); setSelectedService(null); setServiceError(null) }}
+                onSave={handleSave}
+                service={selectedService}
+                error={serviceError}
+            />
         </SidebarProvider>
     )
 }
