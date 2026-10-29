@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className={roboto.className} style={{ height: '100%' }}>
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
           <Navbar />
+          <div className="h-[92px] md:h-[132px]" />
           {children}
           <footer className="flex flex-col items-center text-center [padding:60px_24px]">
           <p className="[font-size:12px]">&copy; 2026 JSL Barber. All rights reserved.</p>

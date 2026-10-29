@@ -73,7 +73,7 @@ export default function ServicesAndPricingPage() {
 
     async function handleDelete(id: string) {
         if (!window.confirm("Delete this service? Existing bookings will not be affected.")) return
-        
+
         const { data: deleted, error } = await supabase
             .from("services")
             .delete()
@@ -92,7 +92,7 @@ export default function ServicesAndPricingPage() {
             <AdminSidebar />
             <div className="flex [width:100%]">
                 <main className="flex-1 [padding:24px]">
-                    <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
+                    <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px]">
                         <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
                         <LayoutDashboard size={20} />
                         <span>Dashboard</span>

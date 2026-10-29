@@ -70,25 +70,39 @@ export default function AvailabilityPage() {
       console.log("Schedule saved")
     }
 
-    async function fetchBlockedTimes() {
-      const { data, error } = await supabase
-        .from("availability_exceptions")
-        .select("*")
-        .order("date")
+    
+  async function fetchBlockedTimes() { //review changes for this function for blocked times on a rolling basis
+    const now = new Date()
+    const today =
+      `${now.getFullYear()}-` +
+      `${(now.getMonth() + 1).toString().padStart(2, "0")}-` +
+      `${now.getDate().toString().padStart(2, "0")}`
 
-      if (error) {
-        console.log("Error fetching blocked times: ", error)
-      } else {
-        const formatted = data.map((row: any) => ({
-          id: row.id,
-          date: new Date(row.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
-          allDay: row.all_day,
-          start: row.start_time ? formatTime(row.start_time.slice(0, 5)) : null,
-          end: row.end_time ? formatTime(row.end_time.slice(0, 5)) : null,
-        }))
-        setBlockedTimes(formatted)
-      }
+    const { data, error } = await supabase
+      .from("availability_exceptions")
+      .select("*")
+      .gte("date", today)
+      .order("date")
+
+    if (error) {
+      console.log("Error fetching blocked times: ", error)
+    } else {
+      const formatted = data.map((row: any) => ({
+        id: row.id,
+        date: new Date(`${row.date}T12:00:00`).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }),
+        allDay: row.all_day,
+        start: row.start_time ? formatTime(row.start_time.slice(0, 5)) : null,
+        end: row.end_time ? formatTime(row.end_time.slice(0, 5)) : null,
+      }))
+
+      setBlockedTimes(formatted)
     }
+  }
+
 
   async function handleDelete(id: number) {
     const { data, error } = await supabase
@@ -188,7 +202,7 @@ export default function AvailabilityPage() {
         <AdminSidebar />
         <div className="flex [width:100%]">
             <main className="flex-1 [padding:24px]">
-                <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px] [position:sticky] [top:0] [z-index:40]">
+                <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px]">
                     <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
                       <LayoutDashboard size={20} />
                       <span>Dashboard</span>
