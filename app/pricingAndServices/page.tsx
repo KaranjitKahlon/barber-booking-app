@@ -38,43 +38,53 @@ export default function ServicesAndPricingPage() {
     }, [])
 
     async function handleSave(data: Omit<Service, "id">) {
-    setServiceError(null)
-    if (selectedService) {
-        const { error } = await supabase
-        .from("services")
-        .update(data)
-        .eq("id", selectedService.id)
-        if (error) {
-        setServiceError("Failed to save changes.")
+        setServiceError(null)
+
+        if (selectedService) {
+            const { data: updated, error } = await supabase
+                .from("services")
+                .update(data)
+                .eq("id", selectedService.id)
+                .select()
+
+            if (error || !updated || updated.length === 0) {
+                setServiceError("Failed to save changes.")
+            } else {
+                setServices(services.map((s) => s.id === selectedService.id ? { ...s, ...data } : s))
+                setDialogOpen(false)
+                setSelectedService(null)
+            }
         } else {
-        setServices(services.map((s) => s.id === selectedService.id ? { ...s, ...data } : s))
-        setDialogOpen(false)
-        setSelectedService(null)
+            const newId = data.title.toLowerCase().replace(/\s+/g, "-")
+
+            const { data: inserted, error } = await supabase
+                .from("services")
+                .insert([{ id: newId, ...data }])
+                .select()
+
+            if (error || !inserted || inserted.length === 0) {
+                setServiceError("Failed to add service.")
+            } else {
+                setServices([...services, { id: newId, ...data }])
+                setDialogOpen(false)
+            }
         }
-    } else {
-        const newId = data.title.toLowerCase().replace(/\s+/g, "-")
-        const { error } = await supabase
-        .from("services")
-        .insert([{ id: newId, ...data }])
-        if (error) {
-        setServiceError("Failed to add service.")
-        } else {
-        setServices([...services, { id: newId, ...data }])
-        setDialogOpen(false)
-        }
-    }
     }
 
     async function handleDelete(id: string) {
-    const { error } = await supabase
-        .from("services")
-        .delete()
-        .eq("id", id)
-    if (error) {
-        console.error(error)
-    } else {
-        setServices(services.filter((s) => s.id !== id))
-    }
+        if (!window.confirm("Delete this service? Existing bookings will not be affected.")) return
+        
+        const { data: deleted, error } = await supabase
+            .from("services")
+            .delete()
+            .eq("id", id)
+            .select()
+
+        if (error || !deleted || deleted.length === 0) {
+            console.error("Delete failed", error)
+        } else {
+            setServices(services.filter((s) => s.id !== id))
+        }
     }
 
     return (
