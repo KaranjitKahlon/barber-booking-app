@@ -4,8 +4,56 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AdminSidebar } from "@/components/AdminSidebar"
 import { Home, CalendarDays, LogOut, Scissors, LayoutDashboard } from "lucide-react"
 import { supabase } from "@/lib/supabase"
+import { useState, useEffect } from "react"
+import { toLocalDateString } from "@/lib/dates"
+import { formatTime } from "@/lib/timeSlots"
+
+type Booking = {
+  id: string
+  service_id: string
+  date: string
+  start_time: string
+  end_time: string | null
+  name: string
+}
 
 export default function AdminPage() {
+  const [weekBookings, setWeekBookings] = useState<Booking[]>([])
+  const [serviceNames, setServiceNames] = useState<Record<string, string>>({})
+  const today = toLocalDateString(new Date())
+
+  useEffect(() => {
+    async function loadDashboard() {
+      const now = new Date()
+      const weekStart = new Date(now)
+      weekStart.setDate(now.getDate() - now.getDay())
+      const weekEnd = new Date(weekStart)
+      weekEnd.setDate(weekStart.getDate() + 6)
+
+      const { data: bookings, error } = await supabase
+        .from("bookings")
+        .select("id, service_id, date, start_time, end_time, name")
+        .gte("date", toLocalDateString(weekStart))
+        .lte("date", toLocalDateString(weekEnd))
+        .order("date")
+        .order("start_time")
+
+      if (error) console.error(error)
+      else setWeekBookings(bookings)
+
+      const { data: services } = await supabase
+        .from("services")
+        .select("id, title")
+
+      if (services) {
+        setServiceNames(Object.fromEntries(services.map((s) => [s.id, s.title])))
+      }
+    }
+    loadDashboard()
+  }, [])
+
+  const todayBookings = weekBookings.filter((b) => b.date === today)
+
   return (
     <SidebarProvider>
       <div className="flex [width:100%]">
@@ -48,11 +96,11 @@ export default function AdminPage() {
           <section className="grid [grid-template-columns:repeat(1,1fr)] md:[grid-template-columns:repeat(3,1fr)] [gap:16px] [margin-bottom:32px]">
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">Today's Appointments</p>
-              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">6</strong>
+              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">{todayBookings.length}</strong>
             </article>
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">This Week</p>
-              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">23</strong>
+              <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">{weekBookings.length}</strong>
             </article>
             <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">Open Slots Today</p>
@@ -79,21 +127,46 @@ export default function AdminPage() {
                 </div>
 
                 <div className="divide-y [border-color:#f0eee9]">
-                  <article className="flex flex-col md:grid md:[grid-template-columns:100px_1fr_120px] [gap:12px] md:[gap:20px] [padding:20px_24px] md:[padding:20px_32px]">
-                    <div className="flex items-center justify-between md:block">
-                      <p className="[font-size:13px] [font-weight:600] [color:#26323d]">9:00 AM</p>
-                      <span className="md:hidden [background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
-                    </div>
-                    <div>
-                      <p className="[font-size:13px] [font-weight:600] [color:#303b46]">John Doe</p>
-                      <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">Haircut (45 min)</p>
-                    </div>
-                    <div className="hidden md:block [text-align:right]">
-                      <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">Confirmed</span>
-                    </div>
-                  </article>
-                </div>
+                  {todayBookings.map((b) => (
+                    <article
+                      key={b.id}
+                      className="flex flex-col md:grid md:[grid-template-columns:100px_1fr_120px] [gap:12px] md:[gap:20px] [padding:20px_24px] md:[padding:20px_32px]"
+                    >
+                      <div className="flex items-center justify-between md:block">
+                        <div>
+                          <p className="[font-size:13px] [font-weight:600] [color:#26323d]">
+                            {formatTime(b.start_time.slice(0, 5))}
+                          </p>
+                          {b.end_time && (
+                            <p className="[font-size:11px] [color:#959ca2] [margin-top:4px]">
+                              to {formatTime(b.end_time.slice(0, 5))}
+                            </p>
+                          )}
+                        </div>
+                        <span className="md:hidden [background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">
+                          Confirmed
+                        </span>
+                      </div>
+                      <div>
+                        <p className="[font-size:13px] [font-weight:600] [color:#303b46]">{b.name}</p>
+                        <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">
+                          {serviceNames[b.service_id] ?? "Deleted service"}
+                        </p>
+                      </div>
+                      <div className="hidden md:block [text-align:right]">
+                        <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">
+                          Confirmed
+                        </span>
+                      </div>
+                    </article>
+                  ))}
 
+                  {todayBookings.length === 0 && (
+                    <div className="[padding:40px_32px] [text-align:center]">
+                      <p className="[font-size:14px] [color:#89919a]">No appointments today.</p>
+                    </div>
+                  )}
+                </div>
               </section>
             </div>
 

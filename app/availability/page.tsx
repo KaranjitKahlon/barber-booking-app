@@ -78,6 +78,15 @@ export default function AvailabilityPage() {
       `${(now.getMonth() + 1).toString().padStart(2, "0")}-` +
       `${now.getDate().toString().padStart(2, "0")}`
 
+    const { error: cleanupError } = await supabase // deletes blocked time slots if they are a day old from db and frontend
+      .from("availability_exceptions")
+      .delete()
+      .lt("date", today)
+
+    if (cleanupError) {
+      console.log("Error cleaning up expired blocks: ", cleanupError)
+    }
+    
     const { data, error } = await supabase
       .from("availability_exceptions")
       .select("*")
