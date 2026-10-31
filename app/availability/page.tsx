@@ -24,6 +24,7 @@ export default function AvailabilityPage() {
   const [blockedTimes, setBlockedTimes] = useState<BlockedTimeEntry[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [blockError, setBlockError] = useState<string | null>(null)
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
 
   useEffect(() => {
     async function fetchSchedule() {
@@ -51,7 +52,9 @@ export default function AvailabilityPage() {
   }, [])
 
     async function handleSaveSchedule() {
+      setSaveStatus("saving")
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      let failed = false
 
       for (const row of schedule) {
         const dayIndex = days.indexOf(row.day)
@@ -65,9 +68,12 @@ export default function AvailabilityPage() {
           .eq("day_of_week", dayIndex)
           .select()
         
-        console.log("Result: ", data, error)
+        if (error || !data || data.length === 0) {
+          failed = true
+          console.error("Error saving", row.day, error)
+        }
       }
-      console.log("Schedule saved")
+      setSaveStatus(failed ? "error" : "saved")
     }
 
     
@@ -112,6 +118,11 @@ export default function AvailabilityPage() {
     }
   }
 
+  useEffect(() => {
+    if (saveStatus !== "saved") return
+    const timer = setTimeout(() => setSaveStatus("idle"), 3000)
+    return () => clearTimeout(timer)
+  }, [saveStatus])
 
   async function handleDelete(id: number) {
     const { data, error } = await supabase
@@ -242,7 +253,7 @@ export default function AvailabilityPage() {
                 <h1 className="[font-size:28px] [font-weight:600] [margin-top:8px]">Availability</h1>
                 <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Manage your regular working hours and upcoming time off.</p>
 
-                <WeeklySchedule schedule={schedule} onChange={setSchedule} onSave={handleSaveSchedule} />
+                <WeeklySchedule schedule={schedule} onChange={setSchedule} onSave={handleSaveSchedule} saveStatus={saveStatus} />
                 <BlockedTime blockedTimes={blockedTimes} onDelete={handleDelete} onAdd={() => setDialogOpen(true)} />
                 <BlockTimeDialog open={dialogOpen} onClose={() => { setDialogOpen(false); setBlockError(null) }} onSave={handleAdd} error={blockError} />
             </main>

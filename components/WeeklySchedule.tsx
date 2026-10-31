@@ -13,9 +13,10 @@ type WeeklyScheduleProps = {
   schedule: DaySchedule[]
   onChange: (schedule: DaySchedule[]) => void
   onSave: () => void
+  saveStatus: "idle" | "saving" | "saved" | "error"
 }
 
-export default function WeeklySchedule({ schedule, onChange, onSave }: WeeklyScheduleProps) {
+export default function WeeklySchedule({ schedule, onChange, onSave, saveStatus }: WeeklyScheduleProps) {
   function toggleDay(index: number) {
     const updated = [...schedule]
     updated[index] = { ...updated[index], isOpen: !updated[index].isOpen }
@@ -50,9 +51,16 @@ export default function WeeklySchedule({ schedule, onChange, onSave }: WeeklySch
           Save Schedule
         </Button>
 
-        <span className="[font-size:13px] [color:#15803d] [margin-top:32px] [margin-left:16px]">
-          Saved successfully.
-        </span>
+        {saveStatus === "saved" && (
+          <span className="[font-size:13px] [color:#15803d] [margin-top:32px] [margin-left:16px]">
+            Saved successfully.
+          </span>
+        )}
+        {saveStatus === "error" && (
+          <span className="[font-size:13px] [color:#e05c5c] [margin-top:32px] [margin-left:16px]">
+            Couldn't save. Please try again.
+          </span>
+        )}
       </div>
     </section>
   )
