@@ -54,6 +54,14 @@ export default function AdminPage() {
 
   const todayBookings = weekBookings.filter((b) => b.date === today)
 
+  const upcomingBookings = weekBookings.filter((b) => b.date > today)
+
+  const upcomingByDay = upcomingBookings.reduce<Record<string, Booking[]>>((groups, b) => {
+    if (!groups[b.date]) groups[b.date] = []
+    groups[b.date].push(b)
+    return groups
+  }, {})
+
   return (
     <SidebarProvider>
       <div className="flex [width:100%]">
@@ -179,7 +187,28 @@ export default function AdminPage() {
 
               <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
                 <h2 className="[color:#000000] [font-size:16px] [font-weight:600]">Upcoming Schedule</h2>
-                <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">This week</p>
+                <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">Rest of this week</p>
+                <div className="[margin-top:16px] flex flex-col [gap:16px]">
+                  {Object.entries(upcomingByDay).map(([date, bookings]) => (
+                    <div key={date}>
+                      <p className="[font-size:11px] [font-weight:600] [letter-spacing:0.1em] [text-transform:uppercase] [color:#b98a4a]">
+                        {new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+                      </p>
+                      <div className="[margin-top:8px] flex flex-col [gap:6px]">
+                        {bookings.map((b) => (
+                          <div key={b.id} className="flex items-center justify-between">
+                            <span className="[font-size:13px] [color:#303b46]">{b.name}</span>
+                            <span className="[font-size:12px] [color:#89919a]">{formatTime(b.start_time.slice(0, 5))}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {upcomingBookings.length === 0 && (
+                    <p className="[font-size:13px] [color:#89919a]">No more appointments this week.</p>
+                  )}
+                </div>
               </section>
 
             </div>

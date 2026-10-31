@@ -1,5 +1,6 @@
 
 import { supabase } from "@/lib/supabase"
+import { toLocalDateString } from "@/lib/dates"
 
 export function timeToMinutes(time: string): number { // convert readable time to a string of minutes
     if (time.includes("AM") || time.includes("PM")) {
@@ -23,7 +24,7 @@ function minutesToTime(minutes: number): string { // convert the string of minut
 export async function getAvailableSlots(date: Date, serviceId: string): Promise<string[]> {
     const test = await supabase.from("services").select("*")
     const dayOfWeek = date.getDay()
-    const dateString = date.toISOString().split("T")[0]
+    const dateString = toLocalDateString(date)
 
     // check if barber works this day
     const { data: dayData, error: dayError } = await supabase
@@ -56,8 +57,13 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
     const workStart = timeToMinutes(dayData.start_time)
     const workEnd = timeToMinutes(dayData.end_time)
 
+    const now = new Date()
+    const isToday = dateString === toLocalDateString(now)
+    const nowMinutes = now.getHours() * 60 + now.getMinutes()
+    const MIN_LEAD_MINUTES = 60
     const allSlots: number[] = []
     for (let t = workStart; t + duration <= workEnd; t += 15) {
+        if (isToday && t <= nowMinutes + MIN_LEAD_MINUTES) continue
         allSlots.push(t)
     }
 
