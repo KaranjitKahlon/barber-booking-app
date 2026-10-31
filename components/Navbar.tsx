@@ -54,7 +54,7 @@ export default function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit">
-                <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px]">Book Now</Button></Link>
+                <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] cursor-pointer">Book Now</Button></Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

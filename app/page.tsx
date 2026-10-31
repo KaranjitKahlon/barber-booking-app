@@ -32,7 +32,7 @@ export default function Home() {
       <section id="hero" className="flex flex-col items-center text-center [padding:60px_24px]">
         <h1>Get Fresh Cuts</h1>
         <h2>Book your appointment with ease and style.</h2>
-        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px]">Book Now</Button></Link>
+        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] cursor-pointer">Book Now</Button></Link>
       </section>
 
       <section id="services" className="flex flex-col items-center text-center [padding:60px_24px]">
@@ -48,7 +48,7 @@ export default function Home() {
                 />
             ))}
         </div>
-        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Book Now</Button></Link>
+        <Link href="/booking"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Book Now</Button></Link>
       </section>
 
       <section id="hours-location" className="flex flex-col items-center text-center [padding:60px_24px]">

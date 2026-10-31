@@ -157,7 +157,7 @@ export default function BookingPage() {
                                     <Button
                                         key={slot}
                                         onClick={() => setTime(slot)}
-                                        className={`shrink-0 rounded-none [min-width:100px] [padding:12px_16px] text-sm ${
+                                        className={`shrink-0 rounded-none [min-width:100px] [padding:12px_16px] cursor-pointer text-sm ${
                                             time === slot
                                                 ? "bg-[#b98a4a] text-[#111821] hover:bg-[#cda064]"
                                                 : "bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd]"
@@ -172,8 +172,8 @@ export default function BookingPage() {
                 )}
 
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
-                    <Button onClick={() => { setStep(1); setDate(null); setTime(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px]">Back</Button>
-                    <Button onClick={() => setStep(3)} disabled={!time} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Continue</Button>
+                    <Button onClick={() => { setStep(1); setDate(null); setTime(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Back</Button>
+                    <Button onClick={() => setStep(3)} disabled={!time} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Continue</Button>
                 </div>
             </section>
             )}
@@ -186,9 +186,9 @@ export default function BookingPage() {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
-                    <Button onClick={() => { setStep(2); setName(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px]">Back</Button>
+                    <Button onClick={() => { setStep(2); setName(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer">Back</Button>
                     <Button
-                        className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px]"
+                        className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer"
                         disabled={!name}
                         onClick={async () => {
                             const success = await handleConfirm()
@@ -217,7 +217,7 @@ export default function BookingPage() {
                         })}{" "}
                         at {time && formatTime(time)}
                     </p>
-                    <Link href="/"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px]">Return Home</Button></Link>
+                    <Link href="/"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Return Home</Button></Link>
                 </section>
             )}
 
