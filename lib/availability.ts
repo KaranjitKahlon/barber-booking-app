@@ -73,6 +73,17 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
         .select("*")
         .eq("date", dateString)
 
+    // fetch the recurring breaks for the week
+    const { data: breaks, error: breaksError } = await supabase
+        .from("recurring_breaks")
+        .select("start_time, end_time")
+        .eq("day_of_week", dayOfWeek)
+
+    if (breaksError) {
+        console.error("Failed to load breaks", breaksError)
+        return []
+    }
+
     // fetch existing bookings for the date
     const { data: bookings, error: bookingsError } = await supabase
         .rpc("get_booked_times", { p_date: dateString })
@@ -93,6 +104,15 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
                 const exStart = timeToMinutes(ex.start_time.slice(0, 5))
                 const exEnd = timeToMinutes(ex.end_time.slice(0, 5))
                 if (slotStart < exEnd && slotEnd > exStart) return false
+            }
+        }
+
+        // check against recurring breaks 
+        if (breaks) {
+            for (const br of breaks) {
+                const brStart = timeToMinutes(br.start_time.slice(0, 5))
+                const brEnd = timeToMinutes(br.end_time.slice(0, 5))
+                if (slotStart < brEnd && slotEnd > brStart) return false
             }
         }
 
