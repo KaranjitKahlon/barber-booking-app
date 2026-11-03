@@ -20,19 +20,23 @@ export async function middleware(request: NextRequest) { // incoming http reques
         }
     )
 
-    const { data: { session } } = await supabase.auth.getSession() // get auth session from supabase, if there is one
-    if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/availability')) {
-        if (!session) {
-            return NextResponse.redirect(new URL('/login', request.url))
-        }
-        else {
-            return response
-        }
+    const { data: { user } } = await supabase.auth.getUser() // get auth session from supabase, if there is one
+    if (!user) {
+        return NextResponse.redirect(new URL('/login', request.url))
     }
+
+    const { data : isAdmin } = await supabase
+        .rpc("is_admin")
+
+    if (!isAdmin) {
+        return NextResponse.redirect(new URL("/login", request.url))
+    }
+
+    return response // if user is logged in and is an admin let them continue otherwise redirect them to the login page
 }
 
 export const config = {
-    matcher: ['/admin/:path*', '/availability/:path*'] // only run middleware on these paths
+    matcher: ['/admin/:path*', '/availability/:path*', '/pricingAndServices/:path*'] // only run middleware on these paths
 }
 
 // note to self: middleware checks if user is auth from the server side and uses cookies to keep track of session, we use a basic conditional to check if there is a valid session from supabase or not and we route either to the login or let them continue.

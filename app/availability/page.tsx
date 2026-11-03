@@ -129,8 +129,9 @@ export default function AvailabilityPage() {
       .from("availability_exceptions")
       .delete()
       .eq("id", id)
+      .select()
     
-    if (error) {
+    if (error || !data || data.length === 0) {
       console.log("Error deleting blocked time: ", error)
     } else {
       setBlockedTimes(blockedTimes.filter((b) => b.id !== id))
@@ -186,8 +187,8 @@ export default function AvailabilityPage() {
       }])
       .select()
 
-    if (error) {
-      console.log("Error adding blocked time: ", error)
+    if (error || !data || data.length === 0) {
+      setBlockError("Failed to save blocked time. Please try again.")
     } else {
       setBlockedTimes([...blockedTimes, { id: data[0].id, ...entry }])
       setDialogOpen(false)

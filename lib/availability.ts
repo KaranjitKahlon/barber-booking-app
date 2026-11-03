@@ -75,9 +75,12 @@ export async function getAvailableSlots(date: Date, serviceId: string): Promise<
 
     // fetch existing bookings for the date
     const { data: bookings, error: bookingsError } = await supabase
-        .from("bookings")
-        .select("id, date, start_time, end_time, service_id")
-        .eq("date", dateString);
+        .rpc("get_booked_times", { p_date: dateString })
+
+    if (bookingsError) {
+        console.error("Failed to load booked times", bookingsError)
+        return []
+    }
 
     // filter unavailable slots
     const availableSlots = allSlots.filter((slotStart) => {

@@ -110,10 +110,10 @@ export default function AdminPage() {
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">This Week</p>
               <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">{weekBookings.length}</strong>
             </article>
-            <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
+            {/* <article className="[border-radius:12px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
               <p className="[font-size:13px] [font-weight:500] [color:#737d87]">Open Slots Today</p>
               <strong className="[font-size:32px] [font-weight:600] [color:#1f2933] [display:block] [margin-top:16px]">12</strong>
-            </article>
+            </article> */}
           </section>
 
           <div className="flex flex-col md:flex-row [gap:24px]">
@@ -180,10 +180,10 @@ export default function AdminPage() {
 
             <div className="[flex:1] flex flex-col [gap:24px]">
 
-              <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
+              {/* <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
                 <h2 className="[color:#000000] [font-size:16px] [font-weight:600]">Today at a Glance</h2>
                 <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">Shop activity</p>
-              </section>
+              </section> */}
 
               <section className="[border-radius:16px] [border:1px_solid_#e3ddd3] [background:#ffffff] [padding:24px]">
                 <h2 className="[color:#000000] [font-size:16px] [font-weight:600]">Upcoming Schedule</h2>
