@@ -2,11 +2,12 @@
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AdminSidebar } from "@/components/AdminSidebar"
-import { Home, CalendarDays, LogOut, Scissors, LayoutDashboard } from "lucide-react"
+import { Home, CalendarDays, LogOut, Scissors, LayoutDashboard, Phone, MessageSquare } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { useState, useEffect } from "react"
 import { toLocalDateString } from "@/lib/dates"
 import { formatTime } from "@/lib/timeSlots"
+import { formatPhone } from "@/lib/normalizePhone"
 
 type Booking = {
   id: string
@@ -15,6 +16,7 @@ type Booking = {
   start_time: string
   end_time: string | null
   name: string
+  customer_phone: string | null
 }
 
 export default function AdminPage() {
@@ -32,7 +34,7 @@ export default function AdminPage() {
 
       const { data: bookings, error } = await supabase
         .from("bookings")
-        .select("id, service_id, date, start_time, end_time, name")
+        .select("id, service_id, date, start_time, end_time, name, customer_phone")
         .gte("date", toLocalDateString(weekStart))
         .lte("date", toLocalDateString(weekEnd))
         .order("date")
@@ -155,12 +157,40 @@ export default function AdminPage() {
                           Confirmed
                         </span>
                       </div>
-                      <div>
-                        <p className="[font-size:13px] [font-weight:600] [color:#303b46]">{b.name}</p>
-                        <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">
-                          {serviceNames[b.service_id] ?? "Deleted service"}
-                        </p>
+
+                      <div className="flex items-center justify-between [gap:12px]">
+                        <div className="[min-width:0]">
+                          <p className="[font-size:13px] [font-weight:600] [color:#303b46]">{b.name}</p>
+                          {b.customer_phone && (
+                            <p className="[font-size:11px] [color:#737d87] [margin-top:2px]">
+                              {formatPhone(b.customer_phone)}
+                            </p>
+                          )}
+                          <p className="[font-size:11px] [color:#89919a] [margin-top:4px]">
+                            {serviceNames[b.service_id] ?? "Deleted service"}
+                          </p>
+                        </div>
+
+                        {b.customer_phone && (
+                          <div className="flex [gap:8px] [flex-shrink:0]">
+                            <a
+                              href={`sms:${b.customer_phone}`}
+                              aria-label={`Text ${b.name}`}
+                              className="grid place-items-center [width:40px] [height:40px] [border-radius:999px] [background:#f5f0e8] [color:#9b723d]"
+                            >
+                              <MessageSquare size={18} />
+                            </a>
+                            <a
+                              href={`tel:${b.customer_phone}`}
+                              aria-label={`Call ${b.name}`}
+                              className="grid place-items-center [width:40px] [height:40px] [border-radius:999px] [background:#f5f0e8] [color:#9b723d]"
+                            >
+                              <Phone size={18} />
+                            </a>
+                          </div>
+                        )}
                       </div>
+                      
                       <div className="hidden md:block [text-align:right]">
                         <span className="[background:#eaf2ec] [color:#4f7a60] [font-size:10px] [font-weight:600] [padding:6px_12px] [border-radius:999px]">
                           Confirmed
@@ -196,9 +226,34 @@ export default function AdminPage() {
                       </p>
                       <div className="[margin-top:8px] flex flex-col [gap:6px]">
                         {bookings.map((b) => (
-                          <div key={b.id} className="flex items-center justify-between">
+                          <div key={b.id} className="flex items-center justify-between [gap:12px]">
                             <span className="[font-size:13px] [color:#303b46]">{b.name}</span>
-                            <span className="[font-size:12px] [color:#89919a]">{formatTime(b.start_time.slice(0, 5))}</span>
+
+                            <div className="flex items-center [gap:12px]">
+                              <span className="[font-size:12px] [color:#89919a]">
+                                {formatTime(b.start_time.slice(0, 5))}
+                              </span>
+
+                              {b.customer_phone && (
+                                <div className="flex [gap:8px] [flex-shrink:0]">
+                                  <a
+                                    href={`sms:${b.customer_phone}`}
+                                    aria-label={`Text ${b.name}`}
+                                    className="grid place-items-center [width:36px] [height:36px] [border-radius:999px] [background:#f5f0e8] [color:#9b723d]"
+                                  >
+                                    <MessageSquare size={16} />
+                                  </a>
+
+                                  <a
+                                    href={`tel:${b.customer_phone}`}
+                                    aria-label={`Call ${b.name}`}
+                                    className="grid place-items-center [width:36px] [height:36px] [border-radius:999px] [background:#f5f0e8] [color:#9b723d]"
+                                  >
+                                    <Phone size={16} />
+                                  </a>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>

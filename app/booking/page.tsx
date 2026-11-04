@@ -10,12 +10,12 @@ import Link from "next/link"
 import { supabase } from "@/lib/supabase";
 import { getAvailableSlots } from "@/lib/availability"
 import { formatTime } from "@/lib/timeSlots";
+import { normalizePhone } from "@/lib/normalizePhone"
 
 
 export default function BookingPage() {
     const [step, setStep] = useState(1) /* for progressive booking steps*/
     const [services, setServices] = useState<any[]>([])
-    
     const [selectedService, setSelectedService] = useState<string | null>(null)
     const [date, setDate] = useState<Date | null>(null)
     const [time, setTime] = useState<string | null>(null)
@@ -23,6 +23,7 @@ export default function BookingPage() {
     const [availableSlots, setAvailableSlots] = useState<string[]>([])
     const [blockedDates, setBlockedDates] = useState<string[]>([])
     const [closedDays, setClosedDays] = useState<number[]>([])
+    const [phone, setPhone] = useState("")
 
     useEffect(() => {
         async function fetchServices() {
@@ -76,7 +77,7 @@ export default function BookingPage() {
             }, [date, selectedService])
 
     async function handleConfirm(): Promise<boolean> {
-        if (!date || !selectedService || !time || !name) return false
+        if (!date || !selectedService || !time || !name || normalizePhone(phone).length !== 10) return false
 
         const { data: serviceData, error: serviceError } = await supabase
             .from("services")
@@ -107,6 +108,7 @@ export default function BookingPage() {
                 start_time: time,
                 end_time: endTime,
                 name: name,
+                customer_phone: normalizePhone(phone)
             },
         ])
 
@@ -185,11 +187,25 @@ export default function BookingPage() {
                     value={name ?? ""}
                     onChange={(e) => setName(e.target.value)}
                 />
+
+                <InputBasic
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Phone number"
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    />
+
+                <p className="[font-size:12px] [color:#adb5bd] [margin-top:8px]">
+                    Used only by the barber to contact you about your appointment.
+                </p>
+
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
-                    <Button onClick={() => { setStep(2); setName(null); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer">Back</Button>
+                    <Button onClick={() => { setStep(2); setName(null); setPhone(""); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer">Back</Button>
                     <Button
                         className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer"
-                        disabled={!name}
+                        disabled={!name || normalizePhone(phone).length !== 10}
                         onClick={async () => {
                             const success = await handleConfirm()
                             if (success) {
