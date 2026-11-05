@@ -338,7 +338,7 @@ export default function AvailabilityPage() {
                 {/* Dashboard */}
                 <a
                   href="/admin"
-                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] no-underline"
                 >
                   <LayoutDashboard size={20} strokeWidth={1.8} />
                   <span>Dashboard</span>
@@ -347,7 +347,7 @@ export default function AvailabilityPage() {
                 {/* Availability */}
                 <a
                   href="/availability"
-                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] no-underline"
                 >
                   <CalendarDays size={20} strokeWidth={1.8} />
                   <span>Availability</span>
@@ -356,7 +356,7 @@ export default function AvailabilityPage() {
                 {/* Edit Services */}
                 <a
                   href="/pricingAndServices"
-                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                  className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] no-underline"
                 >
                   <Scissors size={20} strokeWidth={1.8} />
                   <span>Edit Services</span>
