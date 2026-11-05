@@ -24,6 +24,7 @@ export default function BookingPage() {
     const [blockedDates, setBlockedDates] = useState<string[]>([])
     const [closedDays, setClosedDays] = useState<number[]>([])
     const [phone, setPhone] = useState("")
+    const [appointmentEndTime, setAppointmentEndTime] = useState<string | null>(null) // will come back to this
 
     useEffect(() => {
         async function fetchServices() {

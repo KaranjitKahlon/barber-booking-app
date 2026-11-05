@@ -10,6 +10,15 @@ import { AdminSidebar } from "@/components/AdminSidebar"
 import { supabase } from "@/lib/supabase"
 import { formatTime } from "@/lib/timeSlots"
 import { timeToMinutes } from "@/lib/availability"
+import RecurringBreaks from "@/components/RecurringBreaks"
+import RecurringBreakDialog from "@/components/RecurringBreakDialog"
+
+type BreakEntry = {
+  id: string
+  day: number
+  start: string
+  end: string
+}
 
 type BlockedTimeEntry = {
   id: number
@@ -25,6 +34,9 @@ export default function AvailabilityPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [blockError, setBlockError] = useState<string | null>(null)
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
+  const [breaks, setBreaks] = useState<BreakEntry[]>([])
+  const [breakDialogOpen, setBreakDialogOpen] = useState(false)
+  const [breakError, setBreakError] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchSchedule() {
@@ -49,6 +61,7 @@ export default function AvailabilityPage() {
     }
     fetchSchedule()
     fetchBlockedTimes()
+    fetchBreaks()
   }, [])
 
     async function handleSaveSchedule() {
@@ -76,8 +89,104 @@ export default function AvailabilityPage() {
       setSaveStatus(failed ? "error" : "saved")
     }
 
+  async function fetchBreaks() {            // fetches the breaks from db
+    const { data, error } = await supabase
+      .from("recurring_breaks")
+      .select("*")
+      .order("day_of_week")
+      .order("start_time")
+
+    if (error) {
+      console.error("Error fetching breaks: ", error)
+    } else {
+      setBreaks(data.map((row: any) => ({
+        id: row.id,
+        day: row.day_of_week,
+        start: row.start_time.slice(0, 5),
+        end: row.end_time.slice(0, 5),
+      })))
+    }
+  }
+
+  async function handleAddBreak(entry: { days: number[]; start: string; end: string }) {
+    setBreakError(null)
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+    const startMins = timeToMinutes(entry.start)
+    const endMins = timeToMinutes(entry.end)
+
+    if (endMins <= startMins) {
+      setBreakError("Break must end after it starts.")
+      return
+    }
+
+    for (const d of entry.days) {
+      const dayRow = schedule.find((s) => s.day === dayNames[d])
+
+      if (!dayRow || !dayRow.isOpen) {
+        setBreakError(`${dayNames[d]} is closed. Cannot add break.`)
+        return
+      }
+
+      const clash = breaks.some(                                                                    // check for overlapping breaks on the same day
+        (b) => b.day === d && startMins < timeToMinutes(b.end) && endMins > timeToMinutes(b.start)
+      )
+      if (clash) {
+        setBreakError(`${dayNames[d]} already has a break that overlaps this one.`)
+        return
+      }
+
+      const openMins = timeToMinutes(dayRow.start)                                                  // break hours must be within business hours
+      const closeMins = timeToMinutes(dayRow.end)
+      if (startMins < openMins || endMins > closeMins) {
+        setBreakError(`On ${dayNames[d]} the break must fall within working hours (${dayRow.start} - ${dayRow.end}).`)
+        return
+      }
+    }
+
+    const rows = entry.days.map((d) => ({
+      day_of_week: d,
+      start_time: entry.start,
+      end_time: entry.end,
+    }))
+
+    const { data, error } = await supabase
+      .from("recurring_breaks")
+      .insert(rows)
+      .select()
+
+    if (error?.code === "23505") {
+      setBreakError("That exact break already exists on one of those days.")
+    } else if (error || !data || data.length === 0) {
+      setBreakError("Failed to save break. Please try again.")
+    } else {
+      const added = data.map((row: any) => ({
+        id: row.id,
+        day: row.day_of_week,
+        start: row.start_time.slice(0, 5),
+        end: row.end_time.slice(0, 5),
+      }))
+      setBreaks([...breaks, ...added].sort((a, b) => a.day - b.day || a.start.localeCompare(b.start)))
+      setBreakDialogOpen(false)
+    }
+  }
+
+  async function handleDeleteBreak(id: string) {
+    const { data, error } = await supabase
+      .from("recurring_breaks")
+      .delete()
+      .eq("id", id)
+      .select()
+
+    if (error || !data || data.length === 0) {
+      console.error("Delete break failed: ", error)
+    } else {
+      setBreaks(breaks.filter((b) => b.id !== id))
+    }
+  }
+
     
-  async function fetchBlockedTimes() { //review changes for this function for blocked times on a rolling basis
+  async function fetchBlockedTimes() {              //review changes for this function for blocked times on a rolling basis
     const now = new Date()
     const today =
       `${now.getFullYear()}-` +
@@ -255,6 +364,8 @@ export default function AvailabilityPage() {
                 <p className="[font-size:14px] [color:#7c858e] [margin-top:8px]">Manage your regular working hours and upcoming time off.</p>
 
                 <WeeklySchedule schedule={schedule} onChange={setSchedule} onSave={handleSaveSchedule} saveStatus={saveStatus} />
+                <RecurringBreaks breaks={breaks} onAdd={() => { setBreakError(null); setBreakDialogOpen(true) }} onDelete={handleDeleteBreak} />
+                <RecurringBreakDialog open={breakDialogOpen} onClose={() => { setBreakDialogOpen(false); setBreakError(null) }} onSave={handleAddBreak} error={breakError} />
                 <BlockedTime blockedTimes={blockedTimes} onDelete={handleDelete} onAdd={() => setDialogOpen(true)} />
                 <BlockTimeDialog open={dialogOpen} onClose={() => { setDialogOpen(false); setBlockError(null) }} onSave={handleAdd} error={blockError} />
             </main>
