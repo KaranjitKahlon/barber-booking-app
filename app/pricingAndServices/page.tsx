@@ -91,31 +91,50 @@ export default function ServicesAndPricingPage() {
         <SidebarProvider>
             <AdminSidebar />
             <div className="flex [width:100%]">
-                <main className="flex-1 [padding:24px]">
-                    <section className="md:hidden flex items-center justify-around [background:#111821] [padding:12px_16px] [margin-bottom:24px]">
-                        <a href="/admin" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-                        <LayoutDashboard size={20} />
+                <main className="flex-1 [padding:24px] [padding-bottom:110px] md:[padding-bottom:24px]">
+
+                    <nav className="fixed [bottom:0] [left:0] [right:0] [z-index:50] grid [grid-template-columns:1fr_1fr_1fr_1fr] items-center border-t border-[#303944] bg-[#111821] [padding:10px_8px_calc(24px_+_env(safe-area-inset-bottom))] md:hidden">
+
+                        {/* Dashboard */}
+                        <a
+                        href="/admin"
+                        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                        >
+                        <LayoutDashboard size={20} strokeWidth={1.8} />
                         <span>Dashboard</span>
                         </a>
-                        <a href="/availability" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-                        <CalendarDays size={20} />
+
+                        {/* Availability */}
+                        <a
+                        href="/availability"
+                        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                        >
+                        <CalendarDays size={20} strokeWidth={1.8} />
                         <span>Availability</span>
                         </a>
-                        <a href="/pricingAndServices" className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px]">
-                        <Scissors size={20} />
+
+                        {/* Edit Services */}
+                        <a
+                        href="/pricingAndServices"
+                        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+                        >
+                        <Scissors size={20} strokeWidth={1.8} />
                         <span>Edit Services</span>
                         </a>
-                        <button 
+
+                        {/* Logout */}
+                        <button
                         onClick={async () => {
                             await supabase.auth.signOut()
                             window.location.href = "/login"
                         }}
-                        className="flex flex-col items-center [gap:4px] [color:#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer underline"
+                        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] [background:none] [border:none] cursor-pointer"
                         >
-                        <LogOut size={20} />
+                        <LogOut size={20} strokeWidth={1.8} />
                         <span>Logout</span>
                         </button>
-                    </section>
+
+                    </nav>
 
                     <p className="[font-size:11px] [font-weight:600] [letter-spacing:0.15em] [color:#b98a4a] [text-transform:uppercase]">
                         {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
