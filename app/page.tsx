@@ -46,7 +46,7 @@ export default function Home() {
             Book your appointment with ease and style.
           </h2>
 
-          <Link href="/booking" className="mt-7 w-full">
+          <Link href="/booking" className="mt-7 w-full no-underline">
             <Button className="flex min-h-[50px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] font-semibold cursor-pointer">
               <CalendarIcon size={18} />
               <span>Book Now</span>
@@ -84,7 +84,7 @@ export default function Home() {
             ))}
           </div>
 
-          <Link href="/booking" className="mt-7 w-full">
+          <Link href="/booking" className="mt-7 w-full no-underline">
             <Button className="flex min-h-[48px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] [margin-top:32px] font-semibold cursor-pointer">
               <CalendarIcon size={18} />
               <span>Book Now</span>

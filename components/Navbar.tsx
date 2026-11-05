@@ -92,7 +92,7 @@ export default function Navbar() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit">
-                <Link href="/booking"><Button className="flex items-center [gap:8px] bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] cursor-pointer"> <CalendarIcon size={18} /> <span>Book Now</span> </Button></Link>
+                <Link href="/booking" className="no-underline"><Button className="flex items-center [gap:8px] bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] cursor-pointer"> <CalendarIcon size={18} /> <span>Book Now</span> </Button></Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -106,37 +106,74 @@ export default function Navbar() {
             <button
               type="button"
               aria-label="Open navigation menu"
-              className="flex items-center justify-center [width:44px] [height:44px] [background:none] [border:1px_solid_#B98A4A] [border-radius:10px] cursor-pointer"
+              className="flex items-center justify-center [width:44px] [height:44px] rounded-xl border border-[#b98a4a]/60 bg-[#111821]/80 transition-colors hover:bg-[#b98a4a]/10 cursor-pointer"
             >
-              <Menu size={24} strokeWidth={1.8} className="text-[#ffffff]" />
+              <Menu size={23} strokeWidth={1.8} className="[stroke:#ffffff]" />
             </button>
           </SheetTrigger>
 
-          <SheetContent side="right" className="[top:0] [height:100vh] bg-[#18211B] [opacity:0.9] [padding:24px]">
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
+          <SheetContent
+            side="right"
+            className="[top:0] [height:100dvh] w-[300px] border-l border-white/10 bg-[#111821] [padding:24px]"
+          >
+            <SheetHeader className="border-b border-white/10 [padding-bottom:20px]">
+              <SheetTitle className="text-left [color:#ffffff] [font-size:20px] font-semibold">
+                JSL Barber
+              </SheetTitle>
+              <p className="text-left [color:#ffffff] [font-size:13px]">
+                Navigation
+              </p>
             </SheetHeader>
 
-            <div className="mt-4 flex flex-col gap-4">
+            <div className="mt-7 flex flex-col [gap:8px]">
+
               <SheetClose asChild>
-                <Link href="/#services" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Services</Link>
+                <Link
+                  href="/#services"
+                  className="rounded-xl [color:#ffffff] no-underline text-[15px] font-medium text-white/80 transition-colors hover:bg-white/[0.06] hover:text-white [padding:14px_16px]"
+                >
+                  Services
+                </Link>
               </SheetClose>
 
               <SheetClose asChild>
-                <Link href="/#hours-location" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Hours</Link>
+                <Link
+                  href="/#hours-location"
+                  className="rounded-xl [color:#ffffff] no-underline text-[15px] font-medium text-white/80 transition-colors hover:bg-white/[0.06] hover:text-white [padding:14px_16px]"
+                >
+                  Hours & Location
+                </Link>
               </SheetClose>
 
               <SheetClose asChild>
-                <Link href="/#about" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">About</Link>
+                <Link
+                  href="/#about"
+                  className="rounded-xl [color:#ffffff] no-underline text-[15px] font-medium text-white/80 transition-colors hover:bg-white/[0.06] hover:text-white [padding:14px_16px]"
+                >
+                  About
+                </Link>
+              </SheetClose>
+
+              <div className="my-3 border-t border-white/10" />
+
+              <SheetClose asChild>
+                <Link
+                  href="/login"
+                  className="rounded-xl [color:#ffffff] no-underline text-[15px] font-medium text-white/80 transition-colors hover:bg-white/[0.06] hover:text-white [padding:14px_16px]"
+                >
+                  Login
+                </Link>
               </SheetClose>
 
               <SheetClose asChild>
-                <Link href="/login" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Login</Link>
+                <Link
+                  href="/booking"
+                  className="no-underline mt-2 flex items-center justify-center rounded-xl bg-[#b98a4a] text-center text-[15px] font-semibold text-[#111821] transition-colors hover:bg-[#cda064] [padding:15px_16px]"
+                >
+                  Book Now
+                </Link>
               </SheetClose>
 
-              <SheetClose asChild>
-                <Link href="/booking" className="rounded-md text-sm font-semibold text-[#ffffff] hover:bg-[#adb5bd] transition-colors [padding:12px_24px]">Book Now</Link>
-              </SheetClose>
             </div>
           </SheetContent>
         </Sheet>
