@@ -13,7 +13,7 @@ export default function CustomerBottomNav() {
       {/* Home */}
       <Link
         href="/"
-        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] no-underline"
       >
         <Home size={22} strokeWidth={1.8} />
         <span>Home</span>
@@ -22,7 +22,7 @@ export default function CustomerBottomNav() {
       {/* Book */}
       <Link
         href="/booking"
-        className="flex flex-col items-center justify-center [gap:4px] text-[#B98A4A] [font-size:11px] font-semibold"
+        className="flex flex-col items-center justify-center [gap:4px] text-[#B98A4A] [font-size:11px] font-semibold no-underline"
       >
         <div className="flex items-center justify-center bg-[#B98A4A] text-[#111821] [width:46px] [height:42px] [border-radius:12px]">
             <CalendarPlus size={23} strokeWidth={2} />
@@ -33,7 +33,7 @@ export default function CustomerBottomNav() {
       {/* Services */}
       <Link
         href="/#services"
-        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px]"
+        className="flex flex-col items-center justify-center [gap:4px] text-[#ffffff] [font-size:11px] no-underline"
       >
         <Scissors size={22} strokeWidth={1.8} />
         <span>Services</span>
