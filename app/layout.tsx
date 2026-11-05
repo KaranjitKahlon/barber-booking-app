@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar"
-import { Roboto } from "next/font/google";
+import { DM_Sans, Oswald } from "next/font/google";
 
-const roboto = Roboto({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-})
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-oswald",
+});
 
 export const metadata: Metadata = {
   title: "JSL Barber",
@@ -20,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.className} style={{ height: '100%' }}>
+    <html lang="en" className={`${dmSans.variable} ${oswald.variable}`} style={{ height: '100%' }}>
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
           <Navbar />
           <div className="h-[92px] md:h-[132px]" />

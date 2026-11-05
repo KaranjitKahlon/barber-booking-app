@@ -31,26 +31,29 @@ export default function Home() {
       
   return (
     <main className="">
-      <section id="hero" className="flex flex-col items-center text-center [padding:60px_24px]">
-        <h1>Get Fresh Cuts</h1>
-        <h2>Book your appointment with ease and style.</h2>
-        <Link href="/booking"><Button className="flex items-center [gap:8px] bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] cursor-pointer"> <CalendarIcon size={18} /> <span>Book Now</span> </Button></Link>
-      </section>
+      <section id="hero" className="[padding:24px_16px_32px]">
+        <div className="mx-auto flex w-full max-w-[480px] min-w-0 box-border flex-col items-center rounded-2xl border border-white/10 bg-[#111821]/90 text-center [padding:32px_24px] shadow-lg">
 
-      <section id="services" className="flex flex-col items-center text-center [padding:60px_24px]">
-        <h1>Services</h1>
-        <h2>Explore our range of premium barbering services.</h2>
-        <div className="flex flex-col md:flex-row [gap:24px] mt-8">
-            {services.map((services) => (
-                <ServiceCard
-                    key={services.id}
-                    title={services.title}
-                    description={services.description}
-                    price={services.price}
-                />
-            ))}
+          <p className="mb-3 text-[#b98a4a] [font-size:12px] font-semibold uppercase tracking-[2px]">
+            JSL Barber
+          </p>
+
+          <h1 className="font-bold text-white [font-size:30px]">
+            Get Fresh Cuts
+          </h1>
+
+          <h2 className="mt-2 max-w-[280px] text-white/65 [font-size:15px]">
+            Book your appointment with ease and style.
+          </h2>
+
+          <Link href="/booking" className="mt-7 w-full">
+            <Button className="flex min-h-[50px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] font-semibold cursor-pointer">
+              <CalendarIcon size={18} />
+              <span>Book Now</span>
+            </Button>
+          </Link>
+
         </div>
-        <Link href="/booking"><Button className="flex items-center [gap:8px] bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin-top:32px] cursor-pointer"> <CalendarIcon size={18} /> <span>Book Now</span> </Button></Link>
       </section>
 
       <section id="hours-location" className="flex flex-col items-center text-center [padding:60px_24px]">

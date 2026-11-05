@@ -333,7 +333,7 @@ export default function AvailabilityPage() {
         <div className="flex [width:100%]">
             <main className="flex-1 [padding:24px] [padding-bottom:110px] md:[padding-bottom:24px]">
 
-              <nav className="fixed [bottom:0] [left:0] [right:0] [z-index:50] grid [grid-template-columns:1fr_1fr_1fr_1fr] items-center border-t border-[#303944] bg-[#111821] [padding:10px_8px_calc(24px_+_env(safe-area-inset-bottom))] md:hidden">
+              <nav className="fixed [bottom:0] [left:0] [right:0] [z-index:50] grid [grid-template-columns:1fr_1fr_1fr_1fr] items-center border-t border-[#303944] bg-[#111821] [padding:10px_8px_calc(48px_+_env(safe-area-inset-bottom))] md:hidden">
 
                 {/* Dashboard */}
                 <a
