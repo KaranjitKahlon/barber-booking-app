@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav className="fixed [top:0] [left:0] [right:0] [width:100%] [box-sizing:border-box] [z-index:50] flex items-center justify-between bg-[#111821] text-[#B98A4A] [height:72px] [padding:8px_16px] md:[height:auto] md:[opacity:0.9] md:[padding:16px_24px]">
 
       {/* Mobile branding */}
-      <Link href="/" className="flex items-center gap-2 md:hidden">
+      <Link href="/" className="flex items-center [gap:16px] md:hidden">
         <Image
           src="/jslLogo.jpeg"
           alt="Barber-logo"
@@ -37,7 +37,7 @@ export default function Navbar() {
           alt="Barber-Name"
           width={120}
           height={40}
-          className="[height:36px] [width:auto]"
+          className="[height:36px] [width:auto] [transform:translateY(-3px)] object-contain"
         />
       </Link>
 

@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator"
 import Link from "next/dist/client/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
