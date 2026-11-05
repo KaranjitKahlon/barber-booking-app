@@ -28,7 +28,7 @@ export default function RecurringBreaks({ breaks, onAdd, onDelete }: RecurringBr
             A weekly break, like lunch. Customers can't book over it. Appointments already booked aren't affected.
           </p>
         </div>
-        <Button onClick={onAdd} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:10px_20px] [flex-shrink:0]">
+        <Button onClick={onAdd} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:10px_20px] [flex-shrink:0]">
           + Add Break
         </Button>
       </div>

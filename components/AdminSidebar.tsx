@@ -44,7 +44,7 @@ export function AdminSidebar({
                 await supabase.auth.signOut()
                 window.location.href = "/login"
             }}
-            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin:64px] cursor-pointer"
+            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin:64px] cursor-pointer"
             >
             Logout
             </Button>

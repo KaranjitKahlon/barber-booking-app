@@ -86,10 +86,10 @@ export default function BlockTimeDialog({ open, onClose, onSave, error }: BlockT
           <p className="[font-size:13px] [color:#e05c5c] [margin-top:8px]">{error}</p>
         )}
         <DialogFooter className="flex [gap:12px]">
-          <Button onClick={onClose} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:10px_20px]">
+          <Button onClick={onClose} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-md [padding:10px_20px]">
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={!date} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:10px_20px]">
+          <Button onClick={handleSave} disabled={!date} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:10px_20px]">
             Block Time
           </Button>
         </DialogFooter>

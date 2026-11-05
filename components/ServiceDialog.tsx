@@ -119,13 +119,13 @@ export default function ServiceDialog({ open, onClose, onSave, service, error }:
         </div>
 
         <DialogFooter className="flex [flex-direction:row] [justify-content:flex-end] [gap:12px] [margin-top:28px] [padding-top:20px] [border-top:1px_solid_#efede8]">
-          <Button onClick={onClose} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:12px_24px]">
+          <Button onClick={onClose} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-md [padding:12px_24px]">
             Cancel
           </Button>
           <Button
             onClick={handleSave}
             disabled={!title || !price || !duration}
-            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:12px_24px]"
+            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:12px_24px]"
           >
             {service ? "Save Changes" : "Add Service"}
           </Button>

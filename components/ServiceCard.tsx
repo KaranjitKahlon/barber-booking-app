@@ -19,7 +19,7 @@ type ServiceCardProps = {
 
 export default function ServiceCard( { title, description, price, onClick, selectedService } : ServiceCardProps) {
   return (
-    <Card onClick={onClick} className={`bg-[#DEE2E6] [width:250px] [min-height:100px] [padding:16px] rounded-sm transition-transform hover:[transform:scale(1.05)] cursor-pointer ${selectedService ? "[border:2px_solid_#80ed99] [transform:scale(1.05)]" : ""}`}>
+    <Card onClick={onClick} className={`bg-[#DEE2E6] [width:300px] [min-height:100px] [padding:16px] rounded-sm transition-transform hover:[transform:scale(1.05)] cursor-pointer ${selectedService ? "[border:2px_solid_#80ed99] [transform:scale(1.05)]" : ""}`}>
       <CardHeader className="[padding:24px]">
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

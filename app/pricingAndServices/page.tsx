@@ -173,7 +173,7 @@ export default function ServicesAndPricingPage() {
                             <div className="md:[text-align:right]">
                                <Button
                                 onClick={() => { setSelectedService(service); setDialogOpen(true) }}
-                                className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:8px_16px] [font-size:12px]"
+                                className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:8px_16px] [font-size:12px]"
                                 >
                                 Edit
                                 </Button>
@@ -202,7 +202,7 @@ export default function ServicesAndPricingPage() {
                         <div className="[padding:24px_32px] flex items-center justify-between">
                             <Button
                             onClick={() => { setSelectedService(null); setDialogOpen(true) }}
-                            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:8px_16px] [font-size:12px]"
+                            className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:8px_16px] [font-size:12px]"
                             >
                             + Add Service
                             </Button>

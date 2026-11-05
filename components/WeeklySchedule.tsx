@@ -47,7 +47,7 @@ export default function WeeklySchedule({ schedule, onChange, onSave, saveStatus 
       </div>
 
       <div className="[padding:24px_32px] [border-top:1px_solid_#efede8]">
-        <Button onClick={onSave} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">
+        <Button onClick={onSave} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin-top:32px] cursor-pointer">
           Save Schedule
         </Button>
 

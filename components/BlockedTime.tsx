@@ -25,7 +25,7 @@ export default function BlockedTime({ blockedTimes, onDelete, onAdd }: BlockedTi
           <h2 className="[color:#000000] [font-size:17px] [font-weight:600]">Blocked Time</h2>
           <p className="[font-size:12px] [color:#89919a] [margin-top:6px]">Temporarily prevent customers from booking during specific dates or times.</p>
         </div>
-        <Button onClick={onAdd} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:10px_20px]">
+        <Button onClick={onAdd} className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:10px_20px]">
           + Block Time
         </Button>
       </div>

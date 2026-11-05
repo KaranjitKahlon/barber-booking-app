@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sheet"
 import Image from "next/image"
 import { Button } from "./ui/button"
+import { CalendarIcon } from "lucide-react"
 
 export default function Navbar() {
   return (
@@ -91,11 +92,7 @@ export default function Navbar() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className="bg-transparent text-[#ffffff] hover:bg-transparent hover:text-inherit">
-                <Link href="/booking">
-                  <Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] cursor-pointer">
-                    Book Now
-                  </Button>
-                </Link>
+                <Link href="/booking"><Button className="flex items-center [gap:8px] bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] cursor-pointer"> <CalendarIcon size={18} /> <span>Book Now</span> </Button></Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
