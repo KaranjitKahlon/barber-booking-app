@@ -11,6 +11,7 @@ import { supabase } from "@/lib/supabase";
 import { getAvailableSlots } from "@/lib/availability"
 import { formatTime } from "@/lib/timeSlots";
 import { normalizePhone } from "@/lib/normalizePhone"
+import CustomerBottomNav from "@/components/CustomerBottomNav";
 
 
 export default function BookingPage() {
@@ -256,7 +257,7 @@ export default function BookingPage() {
                     <Link href="/"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:32px] cursor-pointer">Return Home</Button></Link>
                 </section>
             )}
-
+            <CustomerBottomNav />
         </main>
     )
 }

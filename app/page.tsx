@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import Link from "next/dist/client/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import CustomerBottomNav from "@/components/CustomerBottomNav";
 
 
 
@@ -68,7 +69,7 @@ export default function Home() {
           <Image src="/instagramiconwhite.png" alt="Instagram" width={32} height={32} />
         </a>
       </section>
-
+      <CustomerBottomNav />
     </main>
   );
 }
