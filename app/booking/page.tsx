@@ -24,6 +24,7 @@ export default function BookingPage() {
     const [blockedDates, setBlockedDates] = useState<string[]>([])
     const [closedDays, setClosedDays] = useState<number[]>([])
     const [phone, setPhone] = useState("")
+    const [bookingError, setBookingError] = useState<string | null>(null)
     const [appointmentEndTime, setAppointmentEndTime] = useState<string | null>(null) // will come back to this
 
     useEffect(() => {
@@ -77,8 +78,8 @@ export default function BookingPage() {
             fetchSlots()
             }, [date, selectedService])
 
-    async function handleConfirm(): Promise<boolean> {
-        if (!date || !selectedService || !time || !name || normalizePhone(phone).length !== 10) return false
+    async function handleConfirm(): Promise<"ok" | "conflict" | "error"> {
+        if (!date || !selectedService || !time || !name || normalizePhone(phone).length !== 10) return "error"
 
         const { data: serviceData, error: serviceError } = await supabase
             .from("services")
@@ -88,7 +89,7 @@ export default function BookingPage() {
 
         if (serviceError || !serviceData) {
             console.error("Error fetching service duration:", serviceError)
-            return false
+            return "error"
         }
 
         const [hour, minute] = time.split(":").map(Number)
@@ -105,20 +106,20 @@ export default function BookingPage() {
         const { error } = await supabase.from("bookings").insert([
             {
                 service_id: selectedService,
-                date: dateString,        // was `date`, which sent a full timestamp
+                date: dateString,
                 start_time: time,
                 end_time: endTime,
                 name: name,
-                customer_phone: normalizePhone(phone)
+                customer_phone: normalizePhone(phone),
             },
         ])
 
         if (error) {
             console.error(error)
-            return false
+            return error.code === "23P01" ? "conflict" : "error"
         }
 
-        return true
+        return "ok"
     }
 
     return (
@@ -146,6 +147,11 @@ export default function BookingPage() {
             {step === 2 && (
                 <section className="flex flex-col items-center text-center [padding:60px_24px]">
                 <h2>Choose Date and Time</h2>
+
+                {bookingError && (
+                    <p className="[font-size:14px] [color:#e05c5c] [margin-top:16px]">{bookingError}</p>
+                )}
+
                 <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} blockedDates={blockedDates} closedDays={closedDays} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
                 
                 {date && (
@@ -202,15 +208,28 @@ export default function BookingPage() {
                     Used only by the barber to contact you about your appointment.
                 </p>
 
+                {bookingError && (
+                    <p className="[font-size:14px] [color:#e05c5c] [margin-top:16px]">{bookingError}</p>
+                )}
+
                 <div className="flex flex-row md:flex-row [gap:24px] mt-8 [margin-top:32px]">
-                    <Button onClick={() => { setStep(2); setName(null); setPhone(""); }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer">Back</Button>
+                    <Button onClick={() => { setStep(2); setName(null); setPhone(""); setBookingError(null) }} className="bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer">Back</Button>
                     <Button
                         className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:14px_32px] [margin-top:24px] cursor-pointer"
                         disabled={!name || normalizePhone(phone).length !== 10}
                         onClick={async () => {
-                            const success = await handleConfirm()
-                            if (success) {
+                            setBookingError(null)
+                            const result = await handleConfirm()
+
+                            if (result === "ok") {
                                 setStep(4)
+                            } else if (result === "conflict") {
+                                setBookingError("Sorry, that time was just taken. Please choose another.")
+                                setTime(null)
+                                setAvailableSlots(await getAvailableSlots(date!, selectedService!))
+                                setStep(2)
+                            } else {
+                                setBookingError("Something went wrong. Please try again.")
                             }
                         }}
                     >
