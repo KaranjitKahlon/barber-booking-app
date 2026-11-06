@@ -1,15 +1,15 @@
 import Image from "next/image"
 
 const photos = [
-  "/images/gallery/haircut-1.jpg",
-  "/images/gallery/haircut-2.jpg",
-  "/images/gallery/haircut-3.jpg",
-  "/images/gallery/haircut-4.jpg",
-  "/images/gallery/haircut-5.jpg",
-  "/images/gallery/haircut-6.jpg",
-  "/images/gallery/haircut-7.jpg",
-  "/images/gallery/haircut-8.jpg",
-  "/images/gallery/haircut-9.jpg",
+  "/images/gallery/haircut-1.JPG",
+  "/images/gallery/haircut-2.JPG",
+  "/images/gallery/haircut-3.JPG",
+  "/images/gallery/haircut-4.JPG",
+  "/images/gallery/haircut-5.JPG",
+  "/images/gallery/haircut-6.JPG",
+  "/images/gallery/haircut-7.JPG",
+  "/images/gallery/haircut-8.JPG",
+  "/images/gallery/haircut-9.JPG",
 ]
 
 export default function PhotoGallery() {
