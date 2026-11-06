@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import CustomerBottomNav from "@/components/CustomerBottomNav";
 import { CalendarIcon } from "lucide-react";
+import PhotoGallery from "@/components/PhotoGallery";
 
 
 
@@ -39,16 +40,10 @@ export default function Home() {
             JSL Barber
           </p>
 
-          <h1 className="font-bold text-white [font-size:30px]">
-            Get Fresh Cuts
-          </h1>
-
-          <h2 className="mt-2 max-w-[280px] text-white/65 [font-size:15px]">
-            Book your appointment with ease and style.
-          </h2>
+          <PhotoGallery />
 
           <Link href="/booking" className="mt-7 w-full no-underline">
-            <Button className="flex min-h-[50px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] font-semibold cursor-pointer">
+            <Button className="flex min-h-[50px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] [margin-top:24px] font-semibold cursor-pointer">
               <CalendarIcon size={18} />
               <span>Book Now</span>
             </Button>
