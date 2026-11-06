@@ -30,9 +30,15 @@ export default function RootLayout({
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
           <Navbar />
           <div className="h-[92px] md:h-[132px]" />
-          {children}
+
+          <main className="pb-[100px] md:pb-[24px]">
+            {children}
+          </main>
+
           <footer className="flex flex-col items-center text-center [padding:60px_24px]">
-          <p className="[font-size:12px]">&copy; 2026 JSL Barber. All rights reserved.</p>
+            <p className="[font-size:12px]">
+              &copy; 2026 JSL Barber. All rights reserved.
+            </p>
           </footer>
       </body>
     </html>
