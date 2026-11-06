@@ -41,6 +41,10 @@ export default function Home() {
           </p>
 
           <PhotoGallery />
+          <p className="mt-3 flex items-center justify-center [gap:6px] text-white/50 [font-size:11px]">
+            <span aria-hidden="true">↔</span>
+            Swipe to see more
+          </p>
 
           <Link href="/booking" className="mt-7 w-full no-underline">
             <Button className="flex min-h-[50px] w-full items-center justify-center [gap:8px] rounded-xl bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] [font-size:15px] [margin-top:24px] font-semibold cursor-pointer">
