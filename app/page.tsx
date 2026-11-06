@@ -17,8 +17,10 @@ export default function Home() {
 
   useEffect(() => {
           async function fetchServices() {
-              const {data, error } = await supabase.from('services').select('*')
-              console.log("Fetched services:", data, error)
+              const {data, error } = await supabase
+                .from('services')
+                .select('*')
+              
               if (error) {
                   console.error(error)
               } else {
