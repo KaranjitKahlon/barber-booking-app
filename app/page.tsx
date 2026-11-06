@@ -39,6 +39,7 @@ export default function Home() {
           <p className="mb-3 text-[#b98a4a] [font-size:12px] font-semibold uppercase tracking-[2px]">
             JSL Barber
           </p>
+          <p>test</p>
 
           <PhotoGallery />
 
