@@ -46,10 +46,10 @@ export default function BookCalendar({
                 //nav: "absolute inset-x-0 top-0 flex items-center justify-between",
 
                 button_previous:
-                    "size-9 rounded-xl text-white hover:bg-white/10 hover:text-white",
+                    "flex items-center justify-center [width:36px] [height:36px] rounded-xl text-[#000000] hover:bg-white/10 hover:text-[#000000]",
 
                 button_next:
-                    "size-9 rounded-xl text-white hover:bg-white/10 hover:text-white",
+                    "flex items-center justify-center [width:36px] [height:36px] rounded-xl text-[#000000] hover:bg-white/10 hover:text-[#000000]",
 
                 weekdays: "flex w-full",
 
@@ -61,7 +61,7 @@ export default function BookCalendar({
                 day: "flex-1 aspect-square text-center p-0",
 
                 day_button:
-                    "mx-auto flex size-[38px] items-center justify-center rounded-full text-white [font-size:14px] hover:bg-white/10 hover:text-white transition-colors data-[selected-single=true]:bg-[#b98a4a] data-[selected-single=true]:text-[#111821] data-[selected-single=true]:font-bold",
+                    "mx-auto flex size-[38px] items-center justify-center rounded-full text-[#000000] [font-size:14px] hover:bg-white/10 hover:text-[#000000] transition-colors data-[selected-single=true]:bg-[#b98a4a] data-[selected-single=true]:text-[#111821] data-[selected-single=true]:font-bold",
 
                 today:
                     "text-[#b98a4a] font-bold",
