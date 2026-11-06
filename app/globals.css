@@ -57,7 +57,7 @@
 
 
 :root {
-    --background: rgb(47, 67, 108);
+    --background: #0D1117;
     --foreground: oklch(100 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -92,7 +92,7 @@
 }
 
 .dark {
-    --background: oklch(0% 0 0);
+    --background: #0d1117;
     --foreground: oklch(100 0 0);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
@@ -128,33 +128,30 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
-  body {
-  @apply bg-background text-foreground;
-  margin: 0;
-  background-image: url('/jslStudio.jpg');
-  background-size: cover;
-  background-position: center top;
-  background-attachment: scroll;
-  position: relative;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
+  }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.55);
-  z-index: -1;
-}
   html {
     @apply font-sans;
     scroll-behavior: smooth;
-    }
+    min-height: 100%;
+    background-color: #0D1117;
+  }
+
+  body {
+    @apply text-foreground;
+    margin: 0;
+    min-height: 100%;
+    background-color: #0D1117;
+    background-image: linear-gradient(
+      145deg,
+      #151C25 0%,
+      #0D1117 55%,
+      #090D12 100%
+    );
+    background-repeat: no-repeat;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
 }
 
 @keyframes popIn {
