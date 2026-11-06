@@ -155,7 +155,7 @@ export default function BookingPage() {
                     <p className="[font-size:14px] [color:#e05c5c] [margin-top:16px]">{bookingError}</p>
                 )}
 
-                <BookCalendar className="[transform:scale(1.4)] [margin-top:32px]" selected={date} blockedDates={blockedDates} closedDays={closedDays} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
+                <BookCalendar className="[margin-top:32px]" selected={date} blockedDates={blockedDates} closedDays={closedDays} onSelect={(d) => { setDate(d ?? null); setTime(null); }} />
                 
                 {date && (
                     <div className="w-full [max-width:600px] [margin-top:70px]">
