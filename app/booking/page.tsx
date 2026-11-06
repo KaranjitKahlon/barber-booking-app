@@ -12,6 +12,9 @@ import { getAvailableSlots } from "@/lib/availability"
 import { formatTime } from "@/lib/timeSlots";
 import { normalizePhone } from "@/lib/normalizePhone"
 import CustomerBottomNav from "@/components/CustomerBottomNav";
+import { googleCalendarUrl, downloadIcs } from "@/lib/calendar"
+import { toLocalDateString } from "@/lib/dates"
+import { CalendarCheck } from "lucide-react"
 
 
 export default function BookingPage() {
@@ -26,7 +29,6 @@ export default function BookingPage() {
     const [closedDays, setClosedDays] = useState<number[]>([])
     const [phone, setPhone] = useState("")
     const [bookingError, setBookingError] = useState<string | null>(null)
-    const [appointmentEndTime, setAppointmentEndTime] = useState<string | null>(null) // will come back to this
 
     useEffect(() => {
         async function fetchServices() {
@@ -240,23 +242,69 @@ export default function BookingPage() {
             </section>
             )}
 
-            {step === 4 && (
-                <section className="flex flex-col items-center text-center [padding:60px_24px]">
-                    <ConfirmAnimation />
-                    <h2>Appointment Confirmed!</h2>
-                    <p>
-                        Your appointment has been confirmed for{" "}
-                        {date?.toLocaleDateString("en-US", {
-                            weekday: "long",
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
-                        })}{" "}
-                        at {time && formatTime(time)}
-                    </p>
-                    <Link href="/"><Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin-top:32px] cursor-pointer">Return Home</Button></Link>
-                </section>
-            )}
+            {step === 4 && (() => {
+                const svc = services.find((s) => s.id === selectedService)
+
+                const event = svc && date && time ? {
+                    title: `${svc.title} at JSL Barber`,
+                    date: toLocalDateString(date),
+                    start: time,
+                    durationMinutes: svc.duration_minutes,
+                    location: "1005 E Pescadero Ave #155, Tracy, CA 95304",
+                    details: "Booked online. Contact the barber if you need to change your appointment.",
+                } : null
+
+                return (
+                    <section className="flex flex-col items-center text-center [padding:60px_24px]">
+
+                        <ConfirmAnimation />
+
+                        <h2>Appointment Confirmed!</h2>
+
+                        <p>
+                            Your appointment has been confirmed for{" "}
+                            {date?.toLocaleDateString("en-US", {
+                                weekday: "long",
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric",
+                            })}{" "}
+                            at {time && formatTime(time)}
+                        </p>
+
+                        {event && (
+                            <div className="flex w-full max-w-[320px] flex-col [gap:12px] [margin-top:24px]">
+
+                                <Button
+                                    onClick={() => downloadIcs(event)}
+                                    className="bg-[#b98a4a] [gap:8px] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] cursor-pointer"
+                                >
+                                    <CalendarCheck size={18} strokeWidth={2} />
+                                    Add to Calendar
+                                </Button>
+
+                                <a
+                                    href={googleCalendarUrl(event)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center [gap:8px] bg-[#dee2e6] text-[#111821] hover:bg-[#adb5bd] rounded-md [padding:14px_32px] no-underline [font-size:14px] font-medium"
+                                >
+                                    <CalendarCheck size={18} strokeWidth={2} />
+                                    Add to Google Calendar
+                                </a>
+
+                            </div>
+                        )}
+
+                        <Link href="/">
+                            <Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin-top:32px] cursor-pointer">
+                                Return Home
+                            </Button>
+                        </Link>
+
+                    </section>
+                )
+            })()}
             <CustomerBottomNav />
         </main>
     )
