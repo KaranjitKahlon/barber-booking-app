@@ -21,7 +21,7 @@ import { CalendarIcon } from "lucide-react"
 
 export default function Navbar() {
   return (
-    <nav className="fixed [top:env(safe-area-inset-top)] [left:0] [right:0] [width:100%] [box-sizing:border-box] [z-index:50] flex items-center justify-between bg-[#111821] text-[#B98A4A] [height:72px] [padding:8px_16px] md:[height:auto] md:[opacity:0.9] md:[padding:16px_24px]">
+    <nav className="fixed [top:0] [left:0] [right:0] [width:100%] [box-sizing:border-box] [z-index:50] flex items-center justify-between bg-[#111821] text-[#B98A4A] [height:72px] [padding:8px_16px] md:[height:auto] md:[opacity:0.9] md:[padding:16px_24px]">
 
       {/* Mobile branding */}
       <Link href="/" className="flex items-center [gap:16px] md:hidden">
