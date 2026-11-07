@@ -42,11 +42,15 @@ export default function BlockTimeDialog({ open, onClose, onSave, error }: BlockT
       <DialogContent className="[max-width:420px]">
 
         <div className="flex flex-col [gap:20px] [padding:8px_0]">
-          <div className="flex justify-center items-center w-full min-w-0">
-            <BookCalendar
-              selected={date}
-              onSelect={(d) => setDate(d ?? null)}
-            />
+          <div className="flex justify-center [width:100%] [min-width:0]">
+            <div className="[width:100%]">
+              <BookCalendar
+                selected={date}
+                onSelect={(d) => setDate(d ?? null)}
+                compact
+                className="[padding:12px] [max-width:100%]"
+              />
+            </div>
           </div>
 
           <div>
