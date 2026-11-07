@@ -9,6 +9,7 @@ type BookCalendarProps = {
     disabled?: (date: Date) => boolean
     blockedDates?: string[]
     closedDays?: number[]
+    compact?: boolean
 }
 
 export default function BookCalendar({
@@ -17,6 +18,7 @@ export default function BookCalendar({
     onSelect,
     blockedDates = [],
     closedDays = [],
+    compact = false,
 }: BookCalendarProps) {
     return (
         <Calendar
@@ -33,10 +35,11 @@ export default function BookCalendar({
                 return date < today || blockedDates.includes(dateString) || closedDays.includes(date.getDay())
             }}
             mode="single"
-            className={`w-full max-w-[380px] rounded-2xl border border-white/10 bg-[#111821] [padding:20px] shadow-lg ${className ?? ""}`}
+            className={`w-full min-w-0 max-w-[380px] rounded-2xl border border-white/10 bg-[#111821] [padding:12px] shadow-lg ${className ?? ""}`}
             selected={selected ?? undefined}
             onSelect={onSelect}
             classNames={{
+                root: compact ? "w-full min-w-0" : "w-fit",
                 months: "relative flex w-full flex-col",
                 month: "w-full flex flex-col [gap:20px]",
 
@@ -61,7 +64,7 @@ export default function BookCalendar({
                 day: "flex-1 aspect-square text-center p-0",
 
                 day_button:
-                    "mx-auto flex size-[38px] items-center justify-center rounded-full text-[#000000] [font-size:14px] hover:bg-white/10 hover:text-[#000000] transition-colors data-[selected-single=true]:bg-[#b98a4a] data-[selected-single=true]:text-[#111821] data-[selected-single=true]:font-bold",
+                    `mx-auto flex ${compact ? "size-[32px]" : "size-[38px]"} items-center justify-center rounded-full text-[#000000] [font-size:14px] hover:bg-white/10 hover:text-[#000000] transition-colors data-[selected-single=true]:bg-[#b98a4a] data-[selected-single=true]:text-[#111821] data-[selected-single=true]:font-bold`,
 
                 today:
                     "text-[#b98a4a] font-bold",

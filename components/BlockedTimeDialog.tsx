@@ -46,8 +46,20 @@ export default function BlockTimeDialog({ open, onClose, onSave, error }: BlockT
 
         <div className="flex flex-col [gap:20px] [padding:8px_0]">
           <div>
-            <p className="[font-size:13px] [font-weight:600] [margin-bottom:8px]">Date</p>
-            <BookCalendar selected={date} onSelect={(d) => setDate(d ?? null)} />
+            <p className="[font-size:13px] [font-weight:600] [margin-bottom:8px]">
+              Date
+            </p>
+
+            <div className="flex justify-center [width:100%] [min-width:0]">
+                <div className="[width:100%]">
+                    <BookCalendar
+                        selected={date}
+                        onSelect={(d) => setDate(d ?? null)}
+                        compact
+                        className="[padding:12px] [max-width:100%]"
+                    />
+                </div>
+            </div>
           </div>
 
           <div>
