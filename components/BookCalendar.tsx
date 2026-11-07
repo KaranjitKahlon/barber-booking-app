@@ -35,7 +35,7 @@ export default function BookCalendar({
                 return date < today || blockedDates.includes(dateString) || closedDays.includes(date.getDay())
             }}
             mode="single"
-            className={`w-fit min-w-0 max-w-[380px] rounded-2xl border border-white/10 bg-[#111821] [padding:12px] shadow-lg ${className ?? ""}`}
+            className={`w-full min-w-0 max-w-[380px] rounded-2xl border border-white/10 bg-[#111821] [padding:12px] shadow-lg ${className ?? ""}`}
             selected={selected ?? undefined}
             onSelect={onSelect}
             classNames={{
