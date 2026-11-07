@@ -80,7 +80,7 @@ export default function InstallInstructionsDialog({ open, onClose, platform, inA
 
         <Button
           onClick={onClose}
-          className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-none [padding:12px_24px] [margin-top:20px] [width:100%]"
+          className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:12px_24px] [margin-top:20px] [width:100%]"
         >
           Got it
         </Button>
