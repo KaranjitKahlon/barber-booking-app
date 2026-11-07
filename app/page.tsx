@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import CustomerBottomNav from "@/components/CustomerBottomNav";
 import { CalendarIcon } from "lucide-react";
 import PhotoGallery from "@/components/PhotoGallery";
+import InstallButton from "@/components/install/InstallButton";
 
 
 
@@ -180,6 +181,7 @@ export default function Home() {
 
         </div>
       </section>
+      <InstallButton variant="card" />
       <CustomerBottomNav />
     </main>
   );

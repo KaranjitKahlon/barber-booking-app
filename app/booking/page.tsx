@@ -15,6 +15,7 @@ import CustomerBottomNav from "@/components/CustomerBottomNav";
 import { googleCalendarUrl, downloadIcs } from "@/lib/calendar"
 import { toLocalDateString } from "@/lib/dates"
 import { CalendarCheck } from "lucide-react"
+import InstallButton from "@/components/install/InstallButton";
 
 
 export default function BookingPage() {
@@ -295,7 +296,7 @@ export default function BookingPage() {
 
                             </div>
                         )}
-
+                        <InstallButton variant="card" />
                         <Link href="/">
                             <Button className="bg-[#b98a4a] text-[#111821] hover:bg-[#cda064] rounded-md [padding:14px_32px] [margin-top:32px] cursor-pointer">
                                 Return Home

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar"
 import { DM_Sans, Oswald } from "next/font/google";
+import InstallProvider from "@/components/install/InstallProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${oswald.variable}`} style={{ height: '100%' }}>
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
+        <InstallProvider>
           <Navbar />
           <div className="h-[92px] md:h-[132px]" />
 
@@ -40,6 +42,7 @@ export default function RootLayout({
               &copy; 2026 JSL Barber. All rights reserved.
             </p>
           </footer>
+        </InstallProvider>
       </body>
     </html>
   );

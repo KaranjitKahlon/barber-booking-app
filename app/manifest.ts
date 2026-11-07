@@ -4,6 +4,7 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: "/",
     name: "JSL Barber",
     short_name: "JSL Barber",
     description: "Book your appointment with JSL Barber",
