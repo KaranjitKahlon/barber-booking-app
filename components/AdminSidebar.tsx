@@ -18,7 +18,7 @@ export function AdminSidebar({
     showReturnToDashboard = false,
 }: AdminSidebarProps) {
   return (
-        <Sidebar className="[width:250px]">
+        <Sidebar className="[width:250px] bg-[#1C1C1C]">
         <SidebarHeader>
             <div className="[padding:16px]">
                 <h2 className="[font-size:18px] [font-weight:700]">JSL Barber</h2>

@@ -8,7 +8,7 @@ import {
 
 export default function CustomerBottomNav() {
   return (
-    <nav className="fixed [bottom:0] [left:0] [right:0] [z-index:50] grid [grid-template-columns:1fr_1fr_1fr] items-center border-t border-[#303944] bg-[#111821] [padding:10px_16px_calc(32px_+_env(safe-area-inset-bottom))] md:hidden">
+    <nav className="fixed [bottom:0] [left:0] [right:0] [z-index:50] grid [grid-template-columns:1fr_1fr_1fr] items-center border-t border-[#303944] bg-[#1C1C1C] [padding:10px_16px_calc(32px_+_env(safe-area-inset-bottom))] md:hidden">
 
       {/* Home */}
       <Link
