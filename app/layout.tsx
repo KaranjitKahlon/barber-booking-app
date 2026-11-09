@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar"
 import { DM_Sans, Oswald } from "next/font/google";
 import InstallProvider from "@/components/install/InstallProvider";
+import LaunchRedirect from "@/components/install/LaunchRedirect";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} ${oswald.variable}`} style={{ height: '100%' }}>
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
         <InstallProvider>
+          <LaunchRedirect />
           <Navbar />
           <div className="h-[92px] md:h-[132px]" />
 
