@@ -114,7 +114,7 @@ export default function Navbar() {
 
           <SheetContent
             side="right"
-            className="[top:0] [height:100dvh] w-[300px] border-l border-white/10 bg-[#111821] [padding:24px]"
+            className="[top:0] [height:100dvh] w-[300px] border-l border-white/10 bg-[#1C1C1C] [padding:24px]"
           >
             <SheetHeader className="border-b border-white/10 [padding-bottom:20px]">
               <SheetTitle className="text-left [color:#ffffff] [font-size:20px] font-semibold">
