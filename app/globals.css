@@ -134,7 +134,7 @@
     @apply font-sans;
     scroll-behavior: smooth;
     min-height: 100%;
-    background-color: #0D1117;
+    background-color: #121212;
   }
 
   body {
@@ -142,13 +142,6 @@
     margin: 0;
     min-height: 100%;
     background-color: #121212;
-    background-image: linear-gradient(
-      145deg,
-      #1C1C1E 0%,
-      #121212 55%,
-      #0B0B0C 100%
-    );
-    background-repeat: no-repeat;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
@@ -181,6 +174,10 @@ h1, h2, h3 {
 }
 
 #launch-cover {
+  display: none;
+}
+
+html[data-launching] #launch-cover {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -188,17 +185,10 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   background: #111821;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s;
-}
-
-html[data-launching] #launch-cover {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: none;   /* appears instantly, fades out when the attribute is removed */
+  transition: none;
 }
 
 #launch-cover img {
