@@ -179,3 +179,36 @@ body {
 h1, h2, h3 {
   font-family: var(--font-dm-sans), sans-serif;
 }
+
+#launch-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111821;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s;
+}
+
+html[data-launching] #launch-cover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;   /* appears instantly, fades out when the attribute is removed */
+}
+
+#launch-cover img {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  animation: launchPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes launchPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.06); opacity: 1; }
+}

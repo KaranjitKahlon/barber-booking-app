@@ -28,8 +28,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${oswald.variable}`} style={{ height: '100%' }}>
+    <html lang="en" className={`${dmSans.variable} ${oswald.variable}`} style={{ height: '100%' }} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{
+              var s = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+              if (!s) return;
+              if (sessionStorage.getItem('jsl-launch-handled')) return;
+              if (location.pathname !== '/') return;
+              var d = document.documentElement;
+              d.setAttribute('data-launching','1');
+              setTimeout(function(){ d.removeAttribute('data-launching') }, 4000);
+            }catch(e){}})();`,
+          }}
+        />
+      </head>
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
+        <div id="launch-cover" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon-192.png" alt="" />
+        </div>
         <InstallProvider>
           <LaunchRedirect />
           <Navbar />
