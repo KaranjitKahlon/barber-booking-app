@@ -47,7 +47,7 @@ export default function RootLayout({
       <body style={{ height: '100%', overscrollBehavior: 'none' }}>
         <div id="launch-cover" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/jslSplashScreen.png" alt="" />
+          <img src="/jslSplashScreen.PNG" alt="" />
         </div>
         <InstallProvider>
           <LaunchRedirect />
