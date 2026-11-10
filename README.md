@@ -136,19 +136,19 @@ It does not rely on a service worker to cache application responses. This keeps 
    npm install
    ```
 
-3. Create a Supabase project and configure the database using the SQL schema in `supabase/schema.sql`.
-4. Create a `.env.local` file with the required Supabase environment variables:
+3. Create a Supabase project and configure the database tables, relationships, policies, constraints, and triggers.
+
+4. Create a `.env.local` file with your Supabase project credentials:
 
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
    ```
 
-5. Configure an authorized administrative user in the database.
+5. Configure an authorized administrative user in Supabase.
+
 6. Start the development server:
 
    ```bash
    npm run dev
    ```
-
-The application uses the Supabase publishable key for client-side access. No service-role key is required in the application.
